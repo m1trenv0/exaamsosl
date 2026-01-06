@@ -3,6 +3,7 @@ import TrueFalseQuestion from './question-types/TrueFalseQuestion'
 import MultipleSelectQuestion from './question-types/MultipleSelectQuestion'
 import CategorizationQuestion from './question-types/CategorizationQuestion'
 import EssayRichQuestion from './question-types/EssayRichQuestion'
+import ChatQuestion from './question-types/ChatQuestion'
 
 interface Props {
   question: Question
@@ -14,7 +15,6 @@ interface Props {
   hasPrevious: boolean
   hasNext: boolean
   isChatQuestion: boolean
-  onChatToggle: () => void
 }
 
 export default function QuestionCard({
@@ -27,22 +27,7 @@ export default function QuestionCard({
   hasPrevious,
   hasNext,
   isChatQuestion,
-  onChatToggle
 }: Props) {
-  const getQuestionTypeLabel = (type: string) => {
-    switch (type) {
-      case 'multiple_choice': return 'Multiple Choice'
-      case 'text': return 'Fill in the Blank'
-      case 'essay': return 'Essay Question'
-      case 'code': return 'Code Question'
-      case 'true_false': return 'True/False'
-      case 'multiple_select': return 'Multiple Select'
-      case 'categorization': return 'Categorization'
-      case 'essay_rich': return 'Essay Question'
-      default: return 'Question'
-    }
-  }
-
   return (
     <div className="border border-[#C7CDD1] rounded bg-white shadow-sm relative">
       {/* Pin Icon - absolute positioned */}
@@ -69,44 +54,41 @@ export default function QuestionCard({
         <span className="bg-[#394B58] text-white font-semibold px-1.5 py-0.5 text-[12px] rounded-[3px] min-w-[22px] text-center">
           {questionNumber}
         </span>
-        <span className="text-[#6B7280] text-[13px]">
-          {getQuestionTypeLabel(question.question_type)}
-        </span>
-        <span className="text-[#9CA3AF] text-[13px]">1 point</span>
-        
-        {isChatQuestion && (
-          <button
-            onClick={onChatToggle}
-            className="ml-auto text-blue-600 hover:text-blue-700 text-[13px] font-medium"
-          >
-            💬 Help
-          </button>
-        )}
+        <span className="text-gray-600 text-sm">1 point</span>
       </div>
 
       {/* Question Content */}
-      <div className="px-4 py-3">
-        <p className="text-[#2D3B45] text-[14px] font-normal mb-4 leading-relaxed">
-          {question.question_text}
-        </p>
-        
-        {question.question_type === 'multiple_choice' && question.options?.options && (
-          <div className="space-y-3">
-            {question.options.options.map((option, idx) => (
-              <label key={idx} className="flex items-center gap-3 p-3 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer transition-all">
-                <input
-                  type="radio"
-                  name="answer"
-                  value={option}
-                  checked={answer === option}
-                  onChange={(e) => onAnswerChange(e.target.value)}
-                  className="w-[18px] h-[18px] text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-[14px] text-gray-800">{option}</span>
-              </label>
-            ))}
+      <div className="p-6">
+        {isChatQuestion ? (
+          <div>
+            <h3 className="text-gray-900 text-[15px] font-semibold mb-5">
+              Help & Support Chat
+            </h3>
+            <ChatQuestion />
           </div>
-        )}
+        ) : (
+          <>
+            <h3 className="text-gray-900 text-[15px] font-semibold mb-5">
+              {question.question_text}
+            </h3>
+            
+            {question.question_type === 'multiple_choice' && question.options?.options && (
+              <div className="space-y-3">
+                {question.options.options.map((option, idx) => (
+                  <label key={idx} className="flex items-center gap-3 p-3 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer transition-all">
+                    <input
+                      type="radio"
+                      name="answer"
+                      value={option}
+                      checked={answer === option}
+                      onChange={(e) => onAnswerChange(e.target.value)}
+                      className="w-[18px] h-[18px] text-blue-600 border-gray-300 focus:ring-blue-500"
+                    />
+                    <span className="text-[14px] text-gray-800">{option}</span>
+                  </label>
+                ))}
+              </div>
+            )}
 
         {question.question_type === 'text' && (
           <div className="flex items-center gap-2">
@@ -163,6 +145,8 @@ export default function QuestionCard({
               question.question_type === 'code' ? 'font-mono' : ''
             }`}
           />
+        )}
+          </>
         )}
       </div>
 

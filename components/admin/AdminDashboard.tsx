@@ -1,9 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import QuestionsManager from './QuestionsManager'
 import ChatManager from './ChatManager'
@@ -27,7 +25,7 @@ export default function AdminDashboard() {
           <div className="flex justify-between items-center py-4">
             <div>
               <h1 className="text-2xl font-bold text-gray-900">Exam Admin Panel</h1>
-              <p className="text-sm text-gray-500">Manage exams, questions, and chat with participants</p>
+              <p className="text-sm text-gray-500">Manage exam, questions, and live chat</p>
             </div>
             <div className="flex items-center gap-4">
               <span className="text-sm text-gray-600">
@@ -43,25 +41,28 @@ export default function AdminDashboard() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Tabs defaultValue="questions" className="space-y-6">
-          <TabsList className="grid w-full max-w-md grid-cols-3">
-            <TabsTrigger value="questions">Questions</TabsTrigger>
-            <TabsTrigger value="chat">Chat</TabsTrigger>
-            <TabsTrigger value="settings">Settings</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="questions" className="space-y-4">
-            <QuestionsManager />
-          </TabsContent>
-
-          <TabsContent value="chat" className="space-y-4">
+        <div className="space-y-8">
+          {/* Chat - Prominent Position */}
+          <div className="bg-yellow-50 border-2 border-yellow-300 rounded-lg p-4">
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-2xl">💬</span>
+              <h2 className="text-xl font-bold text-gray-900">Live Chat with Student</h2>
+            </div>
             <ChatManager />
-          </TabsContent>
+          </div>
 
-          <TabsContent value="settings" className="space-y-4">
+          {/* Questions */}
+          <div>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Questions</h2>
+            <QuestionsManager />
+          </div>
+
+          {/* Settings */}
+          <div>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Settings</h2>
             <ExamSettings />
-          </TabsContent>
-        </Tabs>
+          </div>
+        </div>
       </div>
     </div>
   )
