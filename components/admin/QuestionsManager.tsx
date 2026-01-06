@@ -144,7 +144,7 @@ export default function QuestionsManager() {
             disabled={loading || !jsonInput.trim()}
             size="lg"
           >
-            {loading ? 'Importing...' : 'Import Questions'}
+            {loading ? 'Uploading...' : 'Upload'}
           </Button>
           <Button
             variant="outline"
@@ -153,7 +153,7 @@ export default function QuestionsManager() {
             size="lg"
           >
             <Download className="w-4 h-4 mr-2" />
-            Export Current
+            Edit
           </Button>
           <Button
             variant="destructive"
