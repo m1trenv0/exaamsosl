@@ -44,9 +44,9 @@ export default function QuestionCard({
   }
 
   return (
-    <div className="max-w-4xl mx-auto border border-gray-300 rounded shadow-sm relative bg-white mb-6">
-      {/* Pin Icon */}
-      <div className="absolute top-4 right-4 text-gray-400 cursor-pointer hover:text-gray-600">
+    <div className="border border-[#C7CDD1] rounded bg-white shadow-sm relative">
+      {/* Pin Icon - absolute positioned */}
+      <div className="absolute top-3 right-3 text-gray-400 cursor-pointer hover:text-gray-600">
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
           width="18" 
@@ -54,7 +54,7 @@ export default function QuestionCard({
           viewBox="0 0 24 24" 
           fill="none" 
           stroke="currentColor" 
-          strokeWidth="2" 
+          strokeWidth="1.5" 
           strokeLinecap="round" 
           strokeLinejoin="round"
           className="rotate-45"
@@ -64,17 +64,20 @@ export default function QuestionCard({
         </svg>
       </div>
 
-      {/* Question Header */}
-      <div className="px-6 py-3 border-b border-gray-300 flex items-center gap-3 bg-gray-50">
-        <span className="bg-gray-800 text-white font-bold px-3 py-1.5 text-sm rounded min-w-[32px] text-center">
+      {/* Question Header - simple inline */}
+      <div className="px-4 pt-4 pb-2 flex items-center gap-2">
+        <span className="bg-[#394B58] text-white font-semibold px-1.5 py-0.5 text-[12px] rounded-[3px] min-w-[22px] text-center">
           {questionNumber}
         </span>
-        <span className="text-gray-600 text-sm">1 point</span>
+        <span className="text-[#6B7280] text-[13px]">
+          {getQuestionTypeLabel(question.question_type)}
+        </span>
+        <span className="text-[#9CA3AF] text-[13px]">1 point</span>
         
         {isChatQuestion && (
           <button
             onClick={onChatToggle}
-            className="ml-auto text-blue-600 hover:text-blue-700 text-sm font-medium"
+            className="ml-auto text-blue-600 hover:text-blue-700 text-[13px] font-medium"
           >
             💬 Help
           </button>
@@ -82,10 +85,10 @@ export default function QuestionCard({
       </div>
 
       {/* Question Content */}
-      <div className="p-6">
-        <h3 className="text-gray-900 text-[15px] font-semibold mb-5">
+      <div className="px-4 py-3">
+        <p className="text-[#2D3B45] text-[14px] font-normal mb-4 leading-relaxed">
           {question.question_text}
-        </h3>
+        </p>
         
         {question.question_type === 'multiple_choice' && question.options?.options && (
           <div className="space-y-3">
@@ -106,13 +109,16 @@ export default function QuestionCard({
         )}
 
         {question.question_type === 'text' && (
-          <input
-            type="text"
-            placeholder="Type your answer here..."
-            value={answer}
-            onChange={(e) => onAnswerChange(e.target.value)}
-            className="border border-gray-300 bg-white px-4 py-3 rounded text-[14px] w-full max-w-2xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
-          />
+          <div className="flex items-center gap-2">
+            <input
+              type="text"
+              placeholder="type your answer..."
+              value={answer}
+              onChange={(e) => onAnswerChange(e.target.value)}
+              className="border border-[#C7CDD1] bg-white px-3 py-2 text-[13px] w-64 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+            />
+            <span className="text-[#6B7280] text-[13px]">+ de Grote</span>
+          </div>
         )}
 
         {question.question_type === 'true_false' && (
@@ -161,18 +167,18 @@ export default function QuestionCard({
       </div>
 
       {/* Question Footer Navigation */}
-      <div className="px-6 py-4 flex justify-between border-t border-gray-300">
+      <div className="px-4 py-3 flex justify-between items-center border-t border-transparent">
         <button
           onClick={onPrevious}
           disabled={!hasPrevious}
-          className="bg-white border border-gray-400 px-5 py-2 rounded text-sm text-gray-700 hover:bg-gray-50 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+          className="bg-white border border-[#C7CDD1] px-4 py-1.5 rounded text-[13px] text-[#2D3B45] hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           Previous
         </button>
         <button
           onClick={onNext}
           disabled={!hasNext}
-          className="bg-white border border-gray-400 px-5 py-2 rounded text-sm text-gray-700 hover:bg-gray-50 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+          className="bg-white border border-[#C7CDD1] px-4 py-1.5 rounded text-[13px] text-[#2D3B45] hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
         >
           Next
         </button>
