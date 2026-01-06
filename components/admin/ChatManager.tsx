@@ -77,22 +77,15 @@ export default function ChatManager() {
 
   return (
     <Card className="border-2">
-      <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
-        <div className="flex items-center justify-between">
-          <div>
-            <CardTitle className="flex items-center gap-2">
-              Live Chat
-              {unreadCount > 0 && (
-                <Badge className="bg-red-600 text-white animate-pulse">
-                  {unreadCount} new
-                </Badge>
-              )}
-            </CardTitle>
-            <CardDescription>
-              Real-time updates • Messages from student appear here instantly
-            </CardDescription>
-          </div>
-        </div>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          Chat
+          {unreadCount > 0 && (
+            <Badge variant="destructive">
+              {unreadCount}
+            </Badge>
+          )}
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4 pt-6">
         <ScrollArea ref={scrollAreaRef} className="h-[500px] border-2 rounded-lg p-4 bg-gray-50">
