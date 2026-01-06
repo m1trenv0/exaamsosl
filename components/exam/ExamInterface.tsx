@@ -115,7 +115,6 @@ export default function ExamInterface() {
                   hasPrevious={currentQuestionIndex > 0}
                   hasNext={currentQuestionIndex < questions.length - 1}
                   isChatQuestion={isChatQuestion}
-                  onChatToggle={() => {}}
                 />
               )}
             </div>

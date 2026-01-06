@@ -15,7 +15,6 @@ interface Props {
   hasPrevious: boolean
   hasNext: boolean
   isChatQuestion: boolean
-  onChatToggle: () => void
 }
 
 export default function QuestionCard({
@@ -28,22 +27,7 @@ export default function QuestionCard({
   hasPrevious,
   hasNext,
   isChatQuestion,
-  onChatToggle
 }: Props) {
-  const getQuestionTypeLabel = (type: string) => {
-    switch (type) {
-      case 'multiple_choice': return 'Multiple Choice'
-      case 'text': return 'Fill in the Blank'
-      case 'essay': return 'Essay Question'
-      case 'code': return 'Code Question'
-      case 'true_false': return 'True/False'
-      case 'multiple_select': return 'Multiple Select'
-      case 'categorization': return 'Categorization'
-      case 'essay_rich': return 'Essay Question'
-      default: return 'Question'
-    }
-  }
-
   return (
     <div className="max-w-4xl mx-auto border border-gray-300 rounded shadow-sm relative bg-white mb-6">
       {/* Pin Icon */}
@@ -71,15 +55,6 @@ export default function QuestionCard({
           {questionNumber}
         </span>
         <span className="text-gray-600 text-sm">1 point</span>
-        
-        {isChatQuestion && (
-          <button
-            onClick={onChatToggle}
-            className="ml-auto text-blue-600 hover:text-blue-700 text-sm font-medium"
-          >
-            💬 Help
-          </button>
-        )}
       </div>
 
       {/* Question Content */}
