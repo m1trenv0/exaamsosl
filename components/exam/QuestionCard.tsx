@@ -44,13 +44,13 @@ export default function QuestionCard({
   }
 
   return (
-    <div className="max-w-4xl mx-auto border border-gray-200 rounded shadow-sm relative bg-white">
+    <div className="max-w-4xl mx-auto border border-gray-300 rounded shadow-sm relative bg-white mb-6">
       {/* Pin Icon */}
       <div className="absolute top-4 right-4 text-gray-400 cursor-pointer hover:text-gray-600">
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
-          width="16" 
-          height="16" 
+          width="18" 
+          height="18" 
           viewBox="0 0 24 24" 
           fill="none" 
           stroke="currentColor" 
@@ -65,19 +65,16 @@ export default function QuestionCard({
       </div>
 
       {/* Question Header */}
-      <div className="px-5 py-4 border-b border-gray-200 flex items-center gap-3">
-        <span className="bg-gray-900 text-white font-semibold px-2.5 py-1 text-[13px] rounded">
+      <div className="px-6 py-3 border-b border-gray-300 flex items-center gap-3 bg-gray-50">
+        <span className="bg-gray-800 text-white font-bold px-3 py-1.5 text-sm rounded min-w-[32px] text-center">
           {questionNumber}
         </span>
-        <span className="text-gray-700 text-[13px]">
-          {getQuestionTypeLabel(question.question_type)}
-        </span>
-        <span className="text-gray-400 text-[13px]">1 point</span>
+        <span className="text-gray-600 text-sm">1 point</span>
         
         {isChatQuestion && (
           <button
             onClick={onChatToggle}
-            className="ml-auto text-blue-600 hover:text-blue-700 text-[13px] font-medium"
+            className="ml-auto text-blue-600 hover:text-blue-700 text-sm font-medium"
           >
             💬 Help
           </button>
@@ -85,24 +82,24 @@ export default function QuestionCard({
       </div>
 
       {/* Question Content */}
-      <div className="p-6 pt-5">
-        <p className="text-gray-700 text-[14px] mb-5 whitespace-pre-wrap">
+      <div className="p-6">
+        <h3 className="text-gray-900 text-[15px] font-semibold mb-5">
           {question.question_text}
-        </p>
+        </h3>
         
         {question.question_type === 'multiple_choice' && question.options?.options && (
-          <div className="space-y-2">
+          <div className="space-y-3">
             {question.options.options.map((option, idx) => (
-              <label key={idx} className="flex items-center gap-3 p-3 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer">
+              <label key={idx} className="flex items-center gap-3 p-3 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer transition-all">
                 <input
                   type="radio"
                   name="answer"
                   value={option}
                   checked={answer === option}
                   onChange={(e) => onAnswerChange(e.target.value)}
-                  className="w-4 h-4"
+                  className="w-[18px] h-[18px] text-blue-600 border-gray-300 focus:ring-blue-500"
                 />
-                <span className="text-[14px] text-gray-700">{option}</span>
+                <span className="text-[14px] text-gray-800">{option}</span>
               </label>
             ))}
           </div>
@@ -111,10 +108,10 @@ export default function QuestionCard({
         {question.question_type === 'text' && (
           <input
             type="text"
-            placeholder="type your answer..."
+            placeholder="Type your answer here..."
             value={answer}
             onChange={(e) => onAnswerChange(e.target.value)}
-            className="border border-gray-300 bg-gray-50 px-3 py-2 rounded text-[13px] w-full max-w-md focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-blue-400 focus:bg-white"
+            className="border border-gray-300 bg-white px-4 py-3 rounded text-[14px] w-full max-w-2xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400"
           />
         )}
 
@@ -156,7 +153,7 @@ export default function QuestionCard({
             value={answer}
             onChange={(e) => onAnswerChange(e.target.value)}
             rows={question.question_type === 'code' ? 12 : 6}
-            className={`border border-gray-300 bg-gray-50 px-3 py-2 rounded text-[13px] w-full focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-blue-400 focus:bg-white resize-y ${
+            className={`border border-gray-300 bg-white px-4 py-3 rounded text-[14px] w-full focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 resize-y ${
               question.question_type === 'code' ? 'font-mono' : ''
             }`}
           />
@@ -164,18 +161,18 @@ export default function QuestionCard({
       </div>
 
       {/* Question Footer Navigation */}
-      <div className="px-6 py-4 flex justify-between border-t border-gray-100 mt-6">
+      <div className="px-6 py-4 flex justify-between border-t border-gray-300">
         <button
           onClick={onPrevious}
           disabled={!hasPrevious}
-          className="bg-[#f8f9fa] border border-gray-300 px-4 py-1.5 rounded text-[13px] text-gray-600 hover:bg-gray-100 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-white border border-gray-400 px-5 py-2 rounded text-sm text-gray-700 hover:bg-gray-50 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-all"
         >
           Previous
         </button>
         <button
           onClick={onNext}
           disabled={!hasNext}
-          className="bg-[#f8f9fa] border border-gray-300 px-4 py-1.5 rounded text-[13px] text-gray-600 hover:bg-gray-100 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+          className="bg-white border border-gray-400 px-5 py-2 rounded text-sm text-gray-700 hover:bg-gray-50 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition-all"
         >
           Next
         </button>

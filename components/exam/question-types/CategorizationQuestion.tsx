@@ -90,64 +90,71 @@ export default function CategorizationQuestion({
   return (
     <div className="space-y-4">
       {/* Categories */}
-      <div className="grid grid-cols-2 gap-4">
-        {categories.map((category) => (
-          <div
-            key={category.name}
-            className="border-2 border-gray-300 rounded-lg p-4 bg-gray-50"
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={() => handleDrop(category.name)}
-          >
-            <h4 className="font-semibold text-sm text-gray-700 mb-3">{category.name}</h4>
-            <div className="space-y-2 min-h-[60px]">
-              {(categoryAssignments[category.name] || []).map((item) => (
-                <div
-                  key={item}
-                  draggable
-                  onDragStart={() => handleDragStart(item)}
-                  className="bg-white border border-gray-300 rounded px-3 py-2 text-sm cursor-move hover:shadow-md transition-shadow flex items-center justify-between"
-                >
-                  <span className="flex items-center gap-2">
-                    <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8h16M4 16h16" />
-                    </svg>
-                    {item}
-                  </span>
-                  <button
-                    onClick={() => removeFromCategory(category.name, item)}
-                    className="text-gray-400 hover:text-red-500"
-                  >
-                    ×
-                  </button>
+      <div className="grid grid-cols-2 gap-6">
+        {categories.map((category) => {
+          const hasItems = (categoryAssignments[category.name] || []).length > 0
+          return (
+            <div key={category.name} className="space-y-2">
+              <h4 className="font-semibold text-[15px] text-gray-800 mb-2">{category.name}</h4>
+              <div
+                className="border border-gray-300 rounded bg-white min-h-[120px] p-3"
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => handleDrop(category.name)}
+              >
+                {!hasItems && (
+                  <p className="text-gray-400 text-center py-8 text-sm">No Answers Chosen</p>
+                )}
+                <div className="space-y-2">
+                  {(categoryAssignments[category.name] || []).map((item) => (
+                    <div
+                      key={item}
+                      draggable
+                      onDragStart={() => handleDragStart(item)}
+                      className="bg-yellow-100 border border-gray-300 rounded px-3 py-2 text-[14px] cursor-move hover:shadow-lg transition-all flex items-center gap-2"
+                    >
+                      <svg className="w-3 h-3 text-gray-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8h16M4 16h16" />
+                      </svg>
+                      <span className="flex-1">{item}</span>
+                      <button
+                        onClick={() => removeFromCategory(category.name, item)}
+                        className="text-gray-400 hover:text-red-500 text-lg leading-none"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
       {/* Possible Answers */}
-      <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gray-50">
-        <h4 className="font-semibold text-sm text-gray-600 mb-3">
-          Drag Uncategorized Answers Here
+      <div className="mt-6">
+        <h4 className="font-semibold text-[15px] text-gray-800 mb-3">
+          Possible answers
         </h4>
-        <div className="flex flex-wrap gap-2">
-          {getUncategorizedItems().map((item) => (
-            <div
-              key={item}
-              draggable
-              onDragStart={() => handleDragStart(item)}
-              className="bg-white border border-gray-300 rounded px-3 py-2 text-sm cursor-move hover:shadow-md transition-shadow flex items-center gap-2"
-            >
-              <svg className="w-4 h-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8h16M4 16h16" />
-              </svg>
-              {item}
-            </div>
-          ))}
-          {getUncategorizedItems().length === 0 && (
-            <p className="text-gray-400 text-sm">All items categorized</p>
-          )}
+        <div className="border border-gray-300 rounded bg-gray-50 p-4 min-h-[80px]">
+          <div className="flex flex-wrap gap-3">
+            {getUncategorizedItems().map((item) => (
+              <div
+                key={item}
+                draggable
+                onDragStart={() => handleDragStart(item)}
+                className="bg-white border border-gray-300 rounded px-4 py-2 text-[14px] cursor-move hover:shadow-lg transition-all flex items-center gap-2"
+              >
+                <svg className="w-3 h-3 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8h16M4 16h16" />
+                </svg>
+                {item}
+              </div>
+            ))}
+            {getUncategorizedItems().length === 0 && (
+              <p className="text-gray-400 text-sm">All items have been categorized</p>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -25,19 +25,19 @@ export default function MultipleSelectQuestion({
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       {options.map((option, idx) => (
         <label 
           key={idx} 
-          className="flex items-center gap-3 p-3 border border-gray-200 rounded hover:bg-gray-50 cursor-pointer transition-colors"
+          className="flex items-center gap-3 p-3 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer transition-all"
         >
           <input
             type="checkbox"
             checked={selectedIndices.includes(idx.toString())}
             onChange={() => handleToggle(idx)}
-            className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+            className="w-[18px] h-[18px] text-blue-600 border-gray-300 rounded focus:ring-blue-500"
           />
-          <span className="text-[14px] text-gray-700">{option}</span>
+          <span className="text-[14px] text-gray-800">{option}</span>
         </label>
       ))}
     </div>
