@@ -60,7 +60,7 @@ export type Answer = z.infer<typeof answerSchema>
 export type AdminLogin = z.infer<typeof adminLoginSchema>
 
 // Example JSON format for importing questions
-export const EXAMPLE_QUESTIONS_JSON = {
+export const EXAMPLE_QUESTIONS_JSON = JSON.stringify({
   questions: [
     {
       order_index: 0,
@@ -82,4 +82,4 @@ export const EXAMPLE_QUESTIONS_JSON = {
       question_type: "code",
     }
   ]
-}
+}, null, 2)

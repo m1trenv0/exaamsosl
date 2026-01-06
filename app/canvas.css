@@ -1,0 +1,488 @@
+/* Canvas Sidebar Styles - Exact copy from landing */
+
+/* --- CORE SETTINGS --- */
+:root {
+    --ic-brand-global-nav-bgd: #fefc78;
+    --ic-brand-global-nav-ic-icon-svg-fill: #000000;
+    --ic-brand-global-nav-menu-item__text-color: #000000;
+    --ic-brand-global-nav-menu-item__text-color--active: #5dbca3;
+    --ic-brand-primary: #00a685;
+    --active-background: #FFFFFF;
+}
+
+.ic-app-header {
+    box-sizing: border-box;
+    background-color: var(--ic-brand-global-nav-bgd);
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    flex-shrink: 0;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.ic-app-header__logomark-container {
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 8px;
+    margin-bottom: 5px;
+}
+
+.ic-app-header__logomark {
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+}
+
+.ic-app-header__logomark img {
+    max-width: 100%;
+    height: auto;
+}
+
+.ic-app-header__menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+}
+
+.ic-app-header__menu-list-item {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.ic-app-header__menu-list-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 10px 0;
+    color: var(--ic-brand-global-nav-menu-item__text-color);
+    transition: background-color 0.2s, color 0.2s;
+    width: 100%;
+}
+
+.ic-app-header__menu-list-item--active .ic-app-header__menu-list-link {
+    background-color: var(--active-background);
+    color: var(--ic-brand-global-nav-menu-item__text-color--active);
+}
+
+.ic-app-header__menu-list-item--active .ic-icon-svg {
+    fill: var(--ic-brand-global-nav-menu-item__text-color--active) !important;
+}
+
+.ic-app-header__menu-list-link:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+.ic-app-header__menu-list-item--active .ic-app-header__menu-list-link:hover {
+    background-color: #FFFFFF;
+}
+
+.menu-item-icon-container {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 4px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ic-icon-svg {
+    width: 26px;
+    height: 26px;
+    fill: var(--ic-brand-global-nav-ic-icon-svg-fill);
+    shape-rendering: geometricPrecision;
+}
+
+.ic-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #d1d5db;
+}
+
+.ic-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menu-item__text {
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.menu-item__badge {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    background: #e74c3c;
+    color: white;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 1px 4px;
+    border-radius: 8px;
+    min-width: 14px;
+    text-align: center;
+}
+
+.ic-app-header::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+.ic-app-header__secondary-navigation {
+    border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Question Navigation Sidebar */
+.question-nav {
+    width: 50px;
+    background: #fff;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    padding-top: 8px;
+}
+
+.question-nav-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+    gap: 12px;
+}
+
+.question-nav-icons i {
+    color: #9ca3af;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.question-nav-item {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    cursor: pointer;
+    position: relative;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.question-nav-item:hover {
+    background-color: #f9fafb;
+}
+
+.question-nav-item.active {
+    font-weight: 600;
+    color: #111827;
+    background-color: #f3f4f6;
+}
+
+.question-nav-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #111827;
+}
+
+.question-nav-bottom {
+    margin-top: auto;
+    padding: 12px 0;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: center;
+}
+
+.question-nav-bottom i {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+/* Pin icon */
+.pin-icon {
+    color: #9ca3af;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.pin-icon:hover {
+    color: #6b7280;
+}
+
+/* Browser chrome styles */
+.browser-tabs {
+    background-color: #1e3a5f;
+    height: 40px;
+    display: flex;
+    align-items: flex-end;
+    padding: 0 2.5px;
+    user-select: none;
+    flex-shrink: 0;
+    padding-top: 1.25px;
+    gap: 2px;
+}
+
+.browser-tab {
+    background-color: #e5e7eb;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 7.5px 7.5px 0 0;
+    position: relative;
+    min-width: 180px;
+    max-width: 225px;
+    z-index: 10;
+    cursor: pointer;
+    transition: background-color 0.15s;
+}
+
+.browser-tab:hover {
+    background-color: #d1d5db;
+}
+
+.browser-tab.active {
+    background-color: #f5f5f5;
+    z-index: 11;
+}
+
+.browser-tab span {
+    font-size: 15px;
+    font-weight: normal;
+    color: #374151;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.browser-addressbar {
+    background-color: #f5f5f5;
+    height: 45px;
+    border-bottom: 1px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.browser-nav-buttons {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #9ca3af;
+}
+
+.browser-nav-buttons i {
+    font-size: 17.5px;
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+.browser-nav-buttons i.fa-rotate-right {
+    color: #6b7280;
+    cursor: pointer;
+    opacity: 1;
+    font-size: 16.25px;
+}
+
+.browser-url-bar {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 3.75px;
+    height: 32.5px;
+    padding: 0 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.browser-url-bar i {
+    color: #10b981;
+    font-size: 12.5px;
+    margin-right: 8px;
+}
+
+.browser-url-bar span {
+    font-size: 15px;
+    color: #6b7280;
+}
+
+.browser-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #6b7280;
+}
+
+/* Windows Taskbar */
+.windows-taskbar {
+    background-color: #0f2942;
+    color: white;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+    flex-shrink: 0;
+    z-index: 50;
+}
+
+.taskbar-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.taskbar-app-icon {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Taskbar popup menus */
+.taskbar-popup {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    margin-bottom: 8px;
+    background: white;
+    color: black;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    z-index: 60;
+}
+
+/* Range input styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    border-radius: 4px;
+    background: #e5e7eb;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #3b82f6;
+    cursor: pointer;
+    border: none;
+}
+
+.taskbar-app-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.taskbar-app-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.taskbar-app-title {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 1.2;
+}
+
+.taskbar-app-subtitle {
+    font-size: 12.5px;
+    color: #d1d5db;
+    line-height: 1.2;
+}
+
+.taskbar-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.taskbar-icon {
+    font-size: 15px;
+    color: white;
+    opacity: 0.95;
+}
+
+.taskbar-language {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.taskbar-datetime {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1.2;
+    margin-left: 8px;
+}
+
+.taskbar-time {
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.taskbar-exit-btn {
+    background-color: #e85e13;
+    color: white;
+    height: 34px;
+    padding: 0 18px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.taskbar-exit-btn:hover {
+    background-color: #d44d08;
+}
+
+.question-number-box {
+    background-color: #111827;
+    color: #fff;
+    font-weight: 600;
+    padding: 3px 10px;
+    font-size: 13px;
+    border-radius: 3px;
+}

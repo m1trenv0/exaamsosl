@@ -1,58 +1,38 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
-import { createClient } from '@/lib/supabase/client'
-import { Button } from '@/components/ui/button'
+import { useState, useEffect } from 'react'
+import { auth } from '@/lib/auth'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Badge } from '@/components/ui/badge'
 import { Question, EXAMPLE_QUESTIONS_JSON } from '@/lib/schemas'
 import { Trash2, Download } from 'lucide-react'
 
-interface Exam {
-  id: string
-  title: string
-  is_active: boolean
-  chat_question_index: number | null
-}
-
 export default function QuestionsManager() {
-  const [exam, setExam] = useState<Exam | null>(null)
+  const [exam, setExam] = useState<{ id: string; title: string } | null>(null)
   const [questions, setQuestions] = useState<Question[]>([])
   const [jsonInput, setJsonInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const supabase = createClient()
 
-  const loadQuestions = useCallback(async () => {
+  useEffect(() => {
+    loadQuestions()
+  }, [])
+
+  const loadQuestions = async () => {
     try {
-      const { data: examData } = await supabase
-        .from('exams')
-        .select('*')
-        .eq('is_active', true)
-        .single()
-
-      if (examData) {
-        setExam(examData)
-
-        const { data: questionsData } = await supabase
-          .from('questions')
-          .select('*')
-          .eq('exam_id', examData.id)
-          .order('order_index')
-
-        if (questionsData) {
-          setQuestions(questionsData as Question[])
-        }
+      const response = await fetch('/api/admin/questions')
+      const data = await response.json()
+      
+      if (data.exam && data.questions) {
+        setExam(data.exam)
+        setQuestions(data.questions)
       }
     } catch (error) {
       console.error('Error loading questions:', error)
     }
-  }, [supabase])
-
-  useEffect(() => {
-    loadQuestions()
-  }, [loadQuestions])
+  }
 
   const handleImportQuestions = async () => {
     if (!exam?.id) {
@@ -70,51 +50,20 @@ export default function QuestionsManager() {
         throw new Error('Invalid format. Expected { questions: [...] }')
       }
 
-      // Delete existing questions
-      await supabase
-        .from('questions')
-        .delete()
-        .eq('exam_id', exam.id)
+      const response = await fetch('/api/admin/questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questions: parsed.questions }),
+      })
 
-      // Insert new questions
-      const questionsToInsert = parsed.questions.map((q) => ({
-        exam_id: exam.id,
-        order_index: q.order_index,
-        question_text: q.question_text,
-        question_type: q.question_type,
-        options: q.options || null,
-      }))
-
-      const { error } = await supabase
-        .from('questions')
-        .insert(questionsToInsert)
-
-      if (error) throw error
+      if (!response.ok) throw new Error('Failed to import')
 
       setJsonInput('')
       await loadQuestions()
-      alert('Questions imported successfully!')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to import questions')
     } finally {
       setLoading(false)
-    }
-  }
-
-  const handleDeleteAll = async () => {
-    if (!exam?.id) return
-    
-    if (!confirm('Are you sure you want to delete all questions?')) return
-
-    try {
-      await supabase
-        .from('questions')
-        .delete()
-        .eq('exam_id', exam.id)
-      
-      await loadQuestions()
-    } catch (error) {
-      console.error('Error deleting questions:', error)
     }
   }
 
@@ -125,78 +74,133 @@ export default function QuestionsManager() {
         question_text: q.question_text,
         question_type: q.question_type,
         options: q.options,
-      }))
+        metadata: q.metadata,
+      })),
     }
-    
-    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = 'questions.json'
-    a.click()
+    setJsonInput(JSON.stringify(exportData, null, 2))
   }
 
-  const loadExampleJSON = () => {
-    setJsonInput(JSON.stringify(EXAMPLE_QUESTIONS_JSON, null, 2))
+  const handleDeleteAll = async () => {
+    if (!confirm('Delete all questions? This cannot be undone.')) return
+
+    try {
+      await fetch('/api/admin/questions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ questions: [] }),
+      })
+      await loadQuestions()
+    } catch (error) {
+      console.error('Error deleting questions:', error)
+    }
   }
 
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Import Questions (JSON)</CardTitle>
-          <CardDescription>
-            Paste your questions in JSON format. See example below.
-          </CardDescription>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle>Questions Manager</CardTitle>
+              <CardDescription>
+                Import/Export questions in JSON format
+              </CardDescription>
+            </div>
+            <Badge variant="outline">
+              {questions.length} question{questions.length !== 1 ? 's' : ''}
+            </Badge>
+          </div>
         </CardHeader>
         <CardContent className="space-y-4">
+          <Textarea
+            value={jsonInput}
+            onChange={(e) => setJsonInput(e.target.value)}
+            placeholder={EXAMPLE_QUESTIONS_JSON}
+            className="font-mono text-sm min-h-[300px]"
+          />
+
           {error && (
-            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded text-sm">
+            <div className="bg-red-50 text-red-600 p-3 rounded text-sm">
               {error}
             </div>
           )}
 
           <div className="flex gap-2">
-            <Button variant="outline" size="sm" onClick={loadExampleJSON}>
-              Load Example
-            </Button>
-            <Button variant="outline" size="sm" onClick={() => setJsonInput('')}>
-              Clear
-            </Button>
-          </div>
-
-          <Textarea
-            value={jsonInput}
-            onChange={(e) => setJsonInput(e.target.value)}
-            placeholder='{"questions": [...]}'
-            rows={12}
-            className="font-mono text-sm"
-          />
-
-          <div className="flex gap-2">
-            <Button onClick={handleImportQuestions} disabled={loading || !jsonInput.trim()}>
+            <Button
+              onClick={handleImportQuestions}
+              disabled={loading || !jsonInput.trim()}
+            >
               {loading ? 'Importing...' : 'Import Questions'}
             </Button>
+            <Button
+              variant="outline"
+              onClick={handleExportQuestions}
+              disabled={questions.length === 0}
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Export Current
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={handleDeleteAll}
+              disabled={questions.length === 0}
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              Delete All
+            </Button>
           </div>
+        </CardContent>
+      </Card>
 
-          <div className="bg-gray-50 p-4 rounded-lg">
-            <p className="text-sm font-semibold mb-2">Expected JSON Format:</p>
-            <pre className="text-xs bg-white p-3 rounded border overflow-x-auto">
+      <Card>
+        <CardHeader>
+          <CardTitle>Current Questions</CardTitle>
+        </CardHeader>
+        <CardContent>
+          {questions.length === 0 ? (
+            <p className="text-gray-500 text-center py-8">
+              No questions yet. Import some questions to get started.
+            </p>
+          ) : (
+            <div className="space-y-2">
+              {questions.map((question, index) => (
+                <div
+                  key={question.id}
+                  className="p-3 bg-gray-50 rounded-md border border-gray-200"
+                >
+                  <div className="flex items-start gap-3">
+                    <Badge className="mt-1">{index + 1}</Badge>
+                    <div className="flex-1">
+                      <p className="font-medium">{question.question_text}</p>
+                      <p className="text-sm text-gray-500 mt-1">
+                        Type: {question.question_type}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>JSON Format Example</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="bg-gray-900 text-gray-100 p-4 rounded-md overflow-x-auto">
+            <pre className="text-xs">
 {`{
   "questions": [
     {
-      "order_index": 0,
-      "question_text": "What is 2+2?",
+      "order_index": 1,
+      "question_text": "What is React?",
       "question_type": "multiple_choice",
       "options": {
-        "options": ["2", "3", "4", "5"],
-        "correct": 2
+        "options": ["Library", "Framework", "Language"],
+        "correct": 0
       }
-    },
-    {
-      "order_index": 1,
-      "question_text": "Explain...",
-      "question_type": "essay"
     }
   ]
 }`}
@@ -205,61 +209,6 @@ export default function QuestionsManager() {
               <strong>question_type:</strong> &quot;multiple_choice&quot;, &quot;text&quot;, &quot;essay&quot;, or &quot;code&quot;
             </p>
           </div>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle>Current Questions ({questions.length})</CardTitle>
-              <CardDescription>Questions currently in the exam</CardDescription>
-            </div>
-            <div className="flex gap-2">
-              {questions.length > 0 && (
-                <>
-                  <Button variant="outline" size="sm" onClick={handleExportQuestions}>
-                    <Download className="w-4 h-4 mr-2" />
-                    Export
-                  </Button>
-                  <Button variant="destructive" size="sm" onClick={handleDeleteAll}>
-                    <Trash2 className="w-4 h-4 mr-2" />
-                    Delete All
-                  </Button>
-                </>
-              )}
-            </div>
-          </div>
-        </CardHeader>
-        <CardContent>
-          {questions.length === 0 ? (
-            <p className="text-gray-500 text-sm text-center py-8">No questions yet. Import some to get started!</p>
-          ) : (
-            <div className="space-y-3">
-              {questions.map((q, idx) => (
-                <div key={q.id} className="border rounded-lg p-4 hover:bg-gray-50">
-                  <div className="flex items-start gap-3">
-                    <Badge variant="outline" className="mt-0.5">Q{idx + 1}</Badge>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <Badge variant="secondary" className="text-xs">
-                          {q.question_type}
-                        </Badge>
-                      </div>
-                      <p className="text-sm text-gray-700 whitespace-pre-wrap">
-                        {q.question_text}
-                      </p>
-                      {q.options?.options && (
-                        <div className="mt-2 text-xs text-gray-600">
-                          Options: {q.options.options.join(', ')}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
         </CardContent>
       </Card>
     </div>
