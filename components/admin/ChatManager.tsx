@@ -115,6 +115,15 @@ export default function ChatManager() {
                         )}
                       </div>
                     )}
+                    {msg.image_data && (
+                      <img
+                        src={msg.image_data}
+                        alt="Shared"
+                        className="rounded mb-2 max-w-full h-auto cursor-pointer hover:opacity-90"
+                        style={{ maxHeight: '300px' }}
+                        onClick={() => window.open(msg.image_data || '', '_blank')}
+                      />
+                    )}
                     <p className="text-sm">{msg.message}</p>
                     <p
                       className={`text-xs mt-1 ${

@@ -45,6 +45,7 @@ export const chatMessageSchema = z.object({
   sender: z.enum(['admin', 'participant']),
   message: z.string().min(1, 'Message cannot be empty'),
   is_read: z.boolean().optional(),
+  image_data: z.string().optional(),
   created_at: z.string().optional(),
 })
 

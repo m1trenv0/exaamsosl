@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
   })
 
   try {
-    const { message, sender } = await request.json()
+    const { message, sender, image_data } = await request.json()
 
     await client.connect()
 
@@ -69,10 +69,10 @@ export async function POST(request: NextRequest) {
     const examId = examResult.rows[0].id
 
     const result = await client.query(`
-      INSERT INTO chat_messages (exam_id, message, sender, is_read)
-      VALUES ($1, $2, $3, false)
+      INSERT INTO chat_messages (exam_id, message, sender, is_read, image_data)
+      VALUES ($1, $2, $3, false, $4)
       RETURNING *
-    `, [examId, message, sender || 'participant'])
+    `, [examId, message, sender || 'participant', image_data || null])
 
     return NextResponse.json({ message: result.rows[0] })
   } catch (error) {

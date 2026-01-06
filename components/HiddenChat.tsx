@@ -5,11 +5,13 @@ import { Card, CardContent } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import CameraCapture from '@/components/CameraCapture'
 
 interface Message {
   id: string
   message: string
   sender: 'admin' | 'participant'
+  image_data?: string | null
   created_at: string
 }
 
@@ -62,6 +64,27 @@ export default function HiddenChat() {
     }
   }
 
+  const sendPhoto = async (base64Image: string) => {
+    setLoading(true)
+    try {
+      await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: '📷 Photo',
+          sender: 'participant',
+          image_data: base64Image,
+        }),
+      })
+
+      await loadMessages()
+    } catch (error) {
+      console.error('Error sending photo:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <Card className="w-full max-w-md">
       <CardContent className="p-4">
@@ -79,6 +102,14 @@ export default function HiddenChat() {
                       : 'bg-blue-500 text-white'
                   }`}
                 >
+                  {msg.image_data && (
+                    <img
+                      src={msg.image_data}
+                      alt="Shared"
+                      className="rounded mb-2 max-w-full h-auto"
+                      style={{ maxHeight: '300px' }}
+                    />
+                  )}
                   <p className="text-sm">{msg.message}</p>
                   <p className="text-xs opacity-70 mt-1">
                     {new Date(msg.created_at).toLocaleTimeString()}
@@ -90,6 +121,7 @@ export default function HiddenChat() {
         </ScrollArea>
 
         <form onSubmit={sendMessage} className="flex gap-2">
+          <CameraCapture onCapture={sendPhoto} disabled={loading} />
           <Input
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
@@ -98,6 +130,8 @@ export default function HiddenChat() {
           />
           <Button type="submit" disabled={loading || !newMessage.trim()}>
             Send
+          </Button>
+        </form>
           </Button>
         </form>
       </CardContent>
