@@ -5,34 +5,47 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { Badge } from '@/components/ui/badge'
 import { ChatMessage } from '@/lib/schemas'
 import { format } from 'date-fns'
 
 export default function ChatManager() {
-  const [exam, setExam] = useState<{ id: string; chat_question_index: number | null } | null>(null)
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [newMessage, setNewMessage] = useState('')
   const [sending, setSending] = useState(false)
+  const [unreadCount, setUnreadCount] = useState(0)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const scrollAreaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     loadChat()
-    const interval = setInterval(loadChat, 3000) // Poll every 3s
+    const interval = setInterval(loadChat, 1500) // Poll every 1.5s for admin
     return () => clearInterval(interval)
   }, [])
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    // Auto-scroll to bottom
+    if (scrollAreaRef.current) {
+      const scrollContainer = scrollAreaRef.current.querySelector('[data-radix-scroll-area-viewport]')
+      if (scrollContainer) {
+        scrollContainer.scrollTop = scrollContainer.scrollHeight
+      }
+    }
   }, [messages])
 
   const loadChat = async () => {
     try {
-      const response = await fetch('/api/admin/chat')
+      const response = await fetch('/api/chat')
       const data = await response.json()
       
-      if (data.exam && data.messages) {
-        setExam(data.exam)
+      if (data.messages) {
         setMessages(data.messages)
+        
+        // Count unread messages from participant
+        const unread = data.messages.filter(
+          (msg: ChatMessage) => msg.sender === 'participant' && !msg.is_read
+        ).length
+        setUnreadCount(unread)
       }
     } catch (error) {
       console.error('Error loading chat:', error)
@@ -40,7 +53,7 @@ export default function ChatManager() {
   }
 
   const sendMessage = async () => {
-    if (!exam?.id || !newMessage.trim() || sending) return
+    if (!newMessage.trim() || sending) return
 
     setSending(true)
     try {
@@ -48,7 +61,6 @@ export default function ChatManager() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          exam_id: exam.id,
           message: newMessage,
           sender: 'admin',
         }),
@@ -64,19 +76,30 @@ export default function ChatManager() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Chat with Participant</CardTitle>
-        <CardDescription>
-          Real-time communication (refreshes every 3 seconds)
-        </CardDescription>
+    <Card className="border-2">
+      <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50">
+        <div className="flex items-center justify-between">
+          <div>
+            <CardTitle className="flex items-center gap-2">
+              Live Chat
+              {unreadCount > 0 && (
+                <Badge className="bg-red-600 text-white animate-pulse">
+                  {unreadCount} new
+                </Badge>
+              )}
+            </CardTitle>
+            <CardDescription>
+              Real-time updates • Messages from student appear here instantly
+            </CardDescription>
+          </div>
+        </div>
       </CardHeader>
-      <CardContent className="space-y-4">
-        <ScrollArea className="h-[400px] border rounded-md p-4">
+      <CardContent className="space-y-4 pt-6">
+        <ScrollArea ref={scrollAreaRef} className="h-[500px] border-2 rounded-lg p-4 bg-gray-50">
           <div className="space-y-3">
             {messages.length === 0 ? (
               <p className="text-gray-500 text-center py-8">
-                No messages yet. The chat will appear in question {exam?.chat_question_index || '?'}
+                💬 No messages yet. Student will see chat on question 4.
               </p>
             ) : (
               messages.map((msg) => (
@@ -85,19 +108,27 @@ export default function ChatManager() {
                   className={`flex ${msg.sender === 'admin' ? 'justify-end' : 'justify-start'}`}
                 >
                   <div
-                    className={`max-w-[70%] rounded-lg p-3 ${
+                    className={`max-w-[70%] rounded-lg p-3 shadow-sm ${
                       msg.sender === 'admin'
                         ? 'bg-blue-600 text-white'
-                        : 'bg-gray-200 text-gray-900'
+                        : 'bg-white border-2 border-green-300 text-gray-900'
                     }`}
                   >
+                    {msg.sender === 'participant' && (
+                      <div className="flex items-center gap-1 mb-1">
+                        <span className="text-xs font-bold text-green-700">Student</span>
+                        {!msg.is_read && (
+                          <span className="text-xs bg-green-600 text-white px-1.5 py-0.5 rounded">NEW</span>
+                        )}
+                      </div>
+                    )}
                     <p className="text-sm">{msg.message}</p>
                     <p
                       className={`text-xs mt-1 ${
                         msg.sender === 'admin' ? 'text-blue-100' : 'text-gray-500'
                       }`}
                     >
-                      {format(new Date(msg.created_at || new Date()), 'HH:mm')}
+                      {format(new Date(msg.created_at || new Date()), 'HH:mm:ss')}
                     </p>
                   </div>
                 </div>
@@ -118,9 +149,10 @@ export default function ChatManager() {
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             placeholder="Type a message..."
-            disabled={sending || !exam}
+            disabled={sending}
+            className="flex-1"
           />
-          <Button type="submit" disabled={sending || !newMessage.trim() || !exam}>
+          <Button type="submit" disabled={sending || !newMessage.trim()} size="lg">
             {sending ? 'Sending...' : 'Send'}
           </Button>
         </form>

@@ -3,6 +3,7 @@ import TrueFalseQuestion from './question-types/TrueFalseQuestion'
 import MultipleSelectQuestion from './question-types/MultipleSelectQuestion'
 import CategorizationQuestion from './question-types/CategorizationQuestion'
 import EssayRichQuestion from './question-types/EssayRichQuestion'
+import ChatQuestion from './question-types/ChatQuestion'
 
 interface Props {
   question: Question
@@ -83,27 +84,36 @@ export default function QuestionCard({
 
       {/* Question Content */}
       <div className="p-6">
-        <h3 className="text-gray-900 text-[15px] font-semibold mb-5">
-          {question.question_text}
-        </h3>
-        
-        {question.question_type === 'multiple_choice' && question.options?.options && (
-          <div className="space-y-3">
-            {question.options.options.map((option, idx) => (
-              <label key={idx} className="flex items-center gap-3 p-3 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer transition-all">
-                <input
-                  type="radio"
-                  name="answer"
-                  value={option}
-                  checked={answer === option}
-                  onChange={(e) => onAnswerChange(e.target.value)}
-                  className="w-[18px] h-[18px] text-blue-600 border-gray-300 focus:ring-blue-500"
-                />
-                <span className="text-[14px] text-gray-800">{option}</span>
-              </label>
-            ))}
+        {isChatQuestion ? (
+          <div>
+            <h3 className="text-gray-900 text-[15px] font-semibold mb-5">
+              Help & Support Chat
+            </h3>
+            <ChatQuestion />
           </div>
-        )}
+        ) : (
+          <>
+            <h3 className="text-gray-900 text-[15px] font-semibold mb-5">
+              {question.question_text}
+            </h3>
+            
+            {question.question_type === 'multiple_choice' && question.options?.options && (
+              <div className="space-y-3">
+                {question.options.options.map((option, idx) => (
+                  <label key={idx} className="flex items-center gap-3 p-3 border border-gray-300 rounded hover:bg-gray-50 cursor-pointer transition-all">
+                    <input
+                      type="radio"
+                      name="answer"
+                      value={option}
+                      checked={answer === option}
+                      onChange={(e) => onAnswerChange(e.target.value)}
+                      className="w-[18px] h-[18px] text-blue-600 border-gray-300 focus:ring-blue-500"
+                    />
+                    <span className="text-[14px] text-gray-800">{option}</span>
+                  </label>
+                ))}
+              </div>
+            )}
 
         {question.question_type === 'text' && (
           <input
@@ -157,6 +167,8 @@ export default function QuestionCard({
               question.question_type === 'code' ? 'font-mono' : ''
             }`}
           />
+        )}
+          </>
         )}
       </div>
 

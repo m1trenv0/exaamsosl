@@ -5,7 +5,6 @@ import BrowserChrome from './BrowserChrome'
 import CanvasSidebar from './CanvasSidebar'
 import QuestionNavigation from './QuestionNavigation'
 import QuestionCard from './QuestionCard'
-import HiddenChat from '@/components/HiddenChat'
 import Taskbar from './Taskbar'
 import { Question, Exam } from '@/lib/schemas'
 
@@ -14,7 +13,6 @@ export default function ExamInterface() {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [exam, setExam] = useState<Exam | null>(null)
   const [answers, setAnswers] = useState<Record<string, string>>({})
-  const [chatOpen, setChatOpen] = useState(false)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
@@ -59,7 +57,7 @@ export default function ExamInterface() {
   }
 
   const currentQuestion = questions[currentQuestionIndex]
-  const showChat = exam?.chat_question_index === currentQuestionIndex + 1
+  const isChatQuestion = exam?.chat_question_index === currentQuestionIndex + 1
 
   if (loading) {
     return (
@@ -116,27 +114,14 @@ export default function ExamInterface() {
                   onNext={() => setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1))}
                   hasPrevious={currentQuestionIndex > 0}
                   hasNext={currentQuestionIndex < questions.length - 1}
-                  isChatQuestion={exam?.chat_question_index === currentQuestionIndex + 1}
-                  onChatToggle={() => setChatOpen(!chatOpen)}
+                  isChatQuestion={isChatQuestion}
+                  onChatToggle={() => {}}
                 />
               )}
             </div>
           </div>
         </div>
       </BrowserChrome>
-
-      {showChat && chatOpen && exam.id && (
-        <HiddenChat />
-      )}
-
-      {showChat && !chatOpen && (
-        <button
-          onClick={() => setChatOpen(true)}
-          className="fixed bottom-24 right-8 bg-blue-600 text-white p-4 rounded-full shadow-lg hover:bg-blue-700 z-50"
-        >
-          💬 Chat
-        </button>
-      )}
 
       <Taskbar examTitle={exam?.title || 'Exam'} />
     </div>
