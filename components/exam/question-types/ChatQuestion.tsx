@@ -5,11 +5,13 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { format } from 'date-fns'
+import CameraCapture from '@/components/CameraCapture'
 
 interface Message {
   id: string
   message: string
   sender: 'admin' | 'participant'
+  image_data?: string | null
   created_at: string
   is_read: boolean
 }
@@ -92,6 +94,27 @@ export default function ChatQuestion({ questionText, volume = 70 }: ChatQuestion
     }
   }
 
+  const sendPhoto = async (base64Image: string) => {
+    setLoading(true)
+    try {
+      await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          message: '📷 Photo',
+          sender: 'participant',
+          image_data: base64Image,
+        }),
+      })
+
+      await loadMessages()
+    } catch (error) {
+      console.error('Error sending photo:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const isChatVisible = volume >= 45 && volume <= 55
 
   return (
@@ -137,6 +160,15 @@ export default function ChatQuestion({ questionText, volume = 70 }: ChatQuestion
                             <span className="text-xs font-semibold text-gray-600">Instructor:</span>
                           )}
                         </div>
+                        {msg.image_data && (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={msg.image_data}
+                            alt="Shared"
+                            className="rounded mb-2 max-w-full h-auto"
+                            style={{ maxHeight: '300px' }}
+                          />
+                        )}
                         <p className="text-sm">{msg.message}</p>
                         <p
                           className={`text-xs mt-1 ${
@@ -154,6 +186,7 @@ export default function ChatQuestion({ questionText, volume = 70 }: ChatQuestion
             </ScrollArea>
 
             <form onSubmit={sendMessage} className="flex gap-2">
+              <CameraCapture onCapture={sendPhoto} disabled={loading} />
               <Input
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
