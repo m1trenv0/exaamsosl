@@ -5,23 +5,27 @@ import { createClient } from '@/lib/supabase/client'
 import { useRouter } from 'next/navigation'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import QuestionsManager from './QuestionsManager'
 import ChatManager from './ChatManager'
 import ExamSettings from './ExamSettings'
 
+interface User {
+  id: string
+  email?: string
+}
+
 export default function AdminDashboard() {
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<User | null>(null)
   const router = useRouter()
   const supabase = createClient()
 
   useEffect(() => {
     const getUser = async () => {
       const { data: { session } } = await supabase.auth.getSession()
-      setUser(session?.user)
+      setUser(session?.user ?? null)
     }
     getUser()
-  }, [])
+  }, [supabase.auth])
 
   const handleLogout = async () => {
     await supabase.auth.signOut()

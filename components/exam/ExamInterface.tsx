@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import BrowserChrome from './BrowserChrome'
 import CanvasSidebar from './CanvasSidebar'
@@ -20,11 +20,7 @@ export default function ExamInterface() {
   
   const supabase = createClient()
 
-  useEffect(() => {
-    loadExam()
-  }, [])
-
-  const loadExam = async () => {
+  const loadExam = useCallback(async () => {
     try {
       // Get active exam
       const { data: examData } = await supabase
@@ -52,13 +48,17 @@ export default function ExamInterface() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    loadExam()
+  }, [loadExam])
 
   const handleAnswerChange = async (questionId: string, answer: string) => {
     setAnswers(prev => ({ ...prev, [questionId]: answer }))
     
     // Save to database
-    if (exam) {
+    if (exam?.id) {
       await supabase
         .from('participant_answers')
         .upsert({

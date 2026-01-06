@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -9,19 +9,22 @@ import { Badge } from '@/components/ui/badge'
 import { Question, EXAMPLE_QUESTIONS_JSON } from '@/lib/schemas'
 import { Trash2, Download } from 'lucide-react'
 
+interface Exam {
+  id: string
+  title: string
+  is_active: boolean
+  chat_question_index: number | null
+}
+
 export default function QuestionsManager() {
-  const [exam, setExam] = useState<any>(null)
+  const [exam, setExam] = useState<Exam | null>(null)
   const [questions, setQuestions] = useState<Question[]>([])
   const [jsonInput, setJsonInput] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const supabase = createClient()
 
-  useEffect(() => {
-    loadQuestions()
-  }, [])
-
-  const loadQuestions = async () => {
+  const loadQuestions = useCallback(async () => {
     try {
       const { data: examData } = await supabase
         .from('exams')
@@ -45,10 +48,14 @@ export default function QuestionsManager() {
     } catch (error) {
       console.error('Error loading questions:', error)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    loadQuestions()
+  }, [loadQuestions])
 
   const handleImportQuestions = async () => {
-    if (!exam) {
+    if (!exam?.id) {
       setError('No active exam found')
       return
     }
@@ -57,7 +64,7 @@ export default function QuestionsManager() {
     setError('')
 
     try {
-      const parsed = JSON.parse(jsonInput)
+      const parsed = JSON.parse(jsonInput) as { questions?: Question[] }
       
       if (!parsed.questions || !Array.isArray(parsed.questions)) {
         throw new Error('Invalid format. Expected { questions: [...] }')
@@ -70,7 +77,7 @@ export default function QuestionsManager() {
         .eq('exam_id', exam.id)
 
       // Insert new questions
-      const questionsToInsert = parsed.questions.map((q: any) => ({
+      const questionsToInsert = parsed.questions.map((q) => ({
         exam_id: exam.id,
         order_index: q.order_index,
         question_text: q.question_text,
@@ -87,15 +94,15 @@ export default function QuestionsManager() {
       setJsonInput('')
       await loadQuestions()
       alert('Questions imported successfully!')
-    } catch (err: any) {
-      setError(err.message || 'Failed to import questions')
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to import questions')
     } finally {
       setLoading(false)
     }
   }
 
   const handleDeleteAll = async () => {
-    if (!exam) return
+    if (!exam?.id) return
     
     if (!confirm('Are you sure you want to delete all questions?')) return
 
@@ -195,7 +202,7 @@ export default function QuestionsManager() {
 }`}
             </pre>
             <p className="text-xs text-gray-600 mt-2">
-              <strong>question_type:</strong> "multiple_choice", "text", "essay", or "code"
+              <strong>question_type:</strong> &quot;multiple_choice&quot;, &quot;text&quot;, &quot;essay&quot;, or &quot;code&quot;
             </p>
           </div>
         </CardContent>

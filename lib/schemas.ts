@@ -13,7 +13,7 @@ export const questionSchema = z.object({
     options: z.array(z.string()).optional(),
     correct: z.number().int().optional(),
   }).optional(),
-  metadata: z.record(z.any()).optional(),
+  metadata: z.record(z.string(), z.unknown()).optional(),
 })
 
 export const questionsArraySchema = z.object({

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { ChatMessage } from '@/lib/schemas'
 import { format } from 'date-fns'
@@ -16,6 +16,18 @@ export default function HiddenChat({ examId, onClose }: Props) {
   const [sending, setSending] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const supabase = createClient()
+
+  const loadMessages = useCallback(async () => {
+    const { data } = await supabase
+      .from('chat_messages')
+      .select('*')
+      .eq('exam_id', examId)
+      .order('created_at', { ascending: true })
+
+    if (data) {
+      setMessages(data as ChatMessage[])
+    }
+  }, [examId, supabase])
 
   useEffect(() => {
     loadMessages()
@@ -40,27 +52,15 @@ export default function HiddenChat({ examId, onClose }: Props) {
     return () => {
       supabase.removeChannel(channel)
     }
-  }, [examId])
+  }, [examId, loadMessages, supabase])
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const loadMessages = async () => {
-    const { data } = await supabase
-      .from('chat_messages')
-      .select('*')
-      .eq('exam_id', examId)
-      .order('created_at', { ascending: true })
-
-    if (data) {
-      setMessages(data as ChatMessage[])
-    }
-  }
-
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!newMessage.trim() || sending) return
+    if (!examId || !newMessage.trim() || sending) return
 
     setSending(true)
     try {

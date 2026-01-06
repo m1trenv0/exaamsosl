@@ -34,7 +34,8 @@ export default function QuestionNavigation({
       </div>
 
       {questions.map((question, index) => {
-        const isAnswered = answers[question.id!]?.trim().length > 0
+        const answer = question.id ? answers[question.id] : undefined
+        const isAnswered = answer ? answer.trim().length > 0 : false
         return (
           <div
             key={question.id}

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -9,23 +9,19 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { ChatMessage } from '@/lib/schemas'
 import { format } from 'date-fns'
 
+interface Exam {
+  id: string
+}
+
 export default function ChatManager() {
-  const [exam, setExam] = useState<any>(null)
+  const [exam, setExam] = useState<Exam | null>(null)
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [newMessage, setNewMessage] = useState('')
   const [sending, setSending] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const supabase = createClient()
 
-  useEffect(() => {
-    loadChat()
-  }, [])
-
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages])
-
-  const loadChat = async () => {
+  const loadChat = useCallback(async () => {
     try {
       const { data: examData } = await supabase
         .from('exams')
@@ -70,11 +66,19 @@ export default function ChatManager() {
     } catch (error) {
       console.error('Error loading chat:', error)
     }
-  }
+  }, [supabase])
+
+  useEffect(() => {
+    loadChat()
+  }, [loadChat])
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [messages])
 
   const sendMessage = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!exam || !newMessage.trim() || sending) return
+    if (!exam?.id || !newMessage.trim() || sending) return
 
     setSending(true)
     try {
