@@ -55,7 +55,9 @@ export default function CategorizationQuestion({
     
     // Remove from all categories
     Object.keys(newAssignments).forEach(key => {
-      newAssignments[key] = newAssignments[key].filter(item => item !== draggedItem)
+      if (newAssignments[key]) {
+        newAssignments[key] = newAssignments[key].filter(item => item !== draggedItem)
+      }
     })
     
     // Add to new category
@@ -71,7 +73,9 @@ export default function CategorizationQuestion({
 
   const removeFromCategory = (categoryName: string, item: string) => {
     const newAssignments = { ...categoryAssignments }
-    newAssignments[categoryName] = newAssignments[categoryName].filter(i => i !== item)
+    if (newAssignments[categoryName]) {
+      newAssignments[categoryName] = newAssignments[categoryName].filter(i => i !== item)
+    }
     setCategoryAssignments(newAssignments)
     onAnswerChange(JSON.stringify(newAssignments))
   }

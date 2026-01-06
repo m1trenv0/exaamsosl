@@ -51,25 +51,33 @@ export default function QuestionBuilder({ onSave, onCancel }: QuestionBuilderPro
 
   const handleCategoryNameChange = (index: number, value: string) => {
     const newCategories = [...categories]
-    newCategories[index].name = value
+    if (newCategories[index]) {
+      newCategories[index].name = value
+    }
     setCategories(newCategories)
   }
 
   const handleCategoryItemChange = (catIndex: number, itemIndex: number, value: string) => {
     const newCategories = [...categories]
-    newCategories[catIndex].items[itemIndex] = value
+    if (newCategories[catIndex]?.items) {
+      newCategories[catIndex].items[itemIndex] = value
+    }
     setCategories(newCategories)
   }
 
   const handleAddCategoryItem = (catIndex: number) => {
     const newCategories = [...categories]
-    newCategories[catIndex].items.push('')
+    if (newCategories[catIndex]?.items) {
+      newCategories[catIndex].items.push('')
+    }
     setCategories(newCategories)
   }
 
   const handleRemoveCategoryItem = (catIndex: number, itemIndex: number) => {
     const newCategories = [...categories]
-    newCategories[catIndex].items = newCategories[catIndex].items.filter((_, i) => i !== itemIndex)
+    if (newCategories[catIndex]?.items) {
+      newCategories[catIndex].items = newCategories[catIndex].items.filter((_, i) => i !== itemIndex)
+    }
     setCategories(newCategories)
   }
 

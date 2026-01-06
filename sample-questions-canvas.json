@@ -1,0 +1,64 @@
+{
+  "questions": [
+    {
+      "order_index": 0,
+      "question_text": "What is 2+2 = ?",
+      "question_type": "text"
+    },
+    {
+      "order_index": 1,
+      "question_text": "Question",
+      "question_type": "multiple_choice",
+      "options": {
+        "options": ["Answer 1", "Answer 4", "Answer 3", "Answer 2"],
+        "correct": 0
+      }
+    },
+    {
+      "order_index": 2,
+      "question_text": "Select all programming languages:",
+      "question_type": "multiple_select",
+      "options": {
+        "options": ["JavaScript", "HTML", "Python", "CSS", "Java"],
+        "correct": [0, 2, 4]
+      }
+    },
+    {
+      "order_index": 3,
+      "question_text": "Question",
+      "question_type": "true_false",
+      "options": {
+        "correct": 0
+      }
+    },
+    {
+      "order_index": 4,
+      "question_text": "Test Question",
+      "question_type": "categorization",
+      "options": {
+        "categories": [
+          { "name": "Colors", "items": ["Blue", "Red"] },
+          { "name": "Shapes", "items": ["Square", "Circle"] }
+        ],
+        "possibleAnswers": ["Blue", "Red", "Square", "Circle", "Green"]
+      }
+    },
+    {
+      "order_index": 5,
+      "question_text": "Prompt",
+      "question_type": "essay_rich",
+      "options": {
+        "wordLimit": { "min": 100, "max": 150 }
+      }
+    },
+    {
+      "order_index": 6,
+      "question_text": "Question",
+      "question_type": "multiple_select",
+      "options": {
+        "options": ["Answer 4", "Answer 3", "Answer 2 (correct)", "Answer 1 (correct)"],
+        "correct": [2, 3]
+      }
+    }
+  ]
+}
