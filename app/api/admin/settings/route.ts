@@ -54,15 +54,15 @@ export async function POST(request: NextRequest) {
   })
 
   try {
-    const { title, chat_question_index } = await request.json()
+    const { title, chat_question_index, chat_question_text } = await request.json()
 
     await client.connect()
 
     await client.query(`
       UPDATE exams 
-      SET title = $1, chat_question_index = $2
+      SET title = $1, chat_question_index = $2, chat_question_text = $3
       WHERE is_active = true
-    `, [title, chat_question_index])
+    `, [title, chat_question_index, chat_question_text])
 
     return NextResponse.json({ success: true })
   } catch (error) {

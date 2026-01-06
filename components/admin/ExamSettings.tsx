@@ -6,8 +6,9 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
 export default function ExamSettings() {
-  const [exam, setExam] = useState<{ id: string; title: string; chat_question_index: number | null; is_active?: boolean } | null>(null)
+  const [exam, setExam] = useState<{ id: string; title: string; chat_question_index: number | null; chat_question_text?: string | null; is_active?: boolean } | null>(null)
   const [examTitle, setExamTitle] = useState('')
+  const [chatQuestionText, setChatQuestionText] = useState('')
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -22,6 +23,7 @@ export default function ExamSettings() {
       if (data.exam) {
         setExam(data.exam)
         setExamTitle(data.exam.title)
+        setChatQuestionText(data.exam.chat_question_text || '')
       }
     } catch (error) {
       console.error('Error loading settings:', error)
@@ -39,6 +41,7 @@ export default function ExamSettings() {
         body: JSON.stringify({
           title: examTitle,
           chat_question_index: 4,
+          chat_question_text: chatQuestionText,
         }),
       })
 
@@ -53,13 +56,16 @@ export default function ExamSettings() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Exam Title</CardTitle>
+        <CardTitle>Exam Settings</CardTitle>
         <CardDescription>
-          Set the exam name (chat will appear on question 4)
+          Configure exam title and chat question (chat appears on question 4)
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="space-y-2">
+          <label htmlFor="title" className="text-sm font-medium">
+            Exam Title
+          </label>
           <Input
             id="title"
             value={examTitle}
@@ -69,8 +75,25 @@ export default function ExamSettings() {
           />
         </div>
 
+        <div className="space-y-2">
+          <label htmlFor="chatQuestion" className="text-sm font-medium">
+            Chat Question Text
+          </label>
+          <textarea
+            id="chatQuestion"
+            value={chatQuestionText}
+            onChange={(e) => setChatQuestionText(e.target.value)}
+            placeholder="Enter the question that will appear next to the chat..."
+            className="w-full min-h-[120px] px-3 py-2 text-sm border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 resize-y"
+          />
+          <p className="text-xs text-gray-500">
+            This question will be displayed on the left side, with the chat on the right. 
+            The chat is only visible when volume is set to 45-55.
+          </p>
+        </div>
+
         <Button onClick={handleSave} disabled={loading} size="lg">
-          {loading ? 'Saving...' : 'Save Title'}
+          {loading ? 'Saving...' : 'Save Settings'}
         </Button>
       </CardContent>
     </Card>

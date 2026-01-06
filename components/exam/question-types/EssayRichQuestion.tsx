@@ -8,6 +8,24 @@ interface EssayRichQuestionProps {
   wordLimit?: { min?: number; max?: number }
 }
 
+interface ToolbarButtonProps {
+  active?: boolean
+  onClick: () => void
+  icon: React.ReactNode
+  title: string
+}
+
+const ToolbarButton = ({ active, onClick, icon, title }: ToolbarButtonProps) => (
+  <button
+    type="button"
+    onClick={onClick}
+    title={title}
+    className={`p-2 rounded hover:bg-gray-200 transition-colors ${active ? 'bg-gray-300' : ''}`}
+  >
+    {icon}
+  </button>
+)
+
 export default function EssayRichQuestion({ 
   answer, 
   onAnswerChange,
@@ -65,27 +83,6 @@ export default function EssayRichQuestion({
       handleFormat('insertImage', url)
     }
   }
-
-  const ToolbarButton = ({ 
-    active, 
-    onClick, 
-    icon, 
-    title 
-  }: { 
-    active?: boolean
-    onClick: () => void
-    icon: React.ReactNode
-    title: string 
-  }) => (
-    <button
-      type="button"
-      onClick={onClick}
-      title={title}
-      className={`p-2 rounded hover:bg-gray-200 transition-colors ${active ? 'bg-gray-300' : ''}`}
-    >
-      {icon}
-    </button>
-  )
 
   const getWordLimitColor = () => {
     if (!wordLimit?.max) return 'text-gray-600'

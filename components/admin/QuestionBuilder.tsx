@@ -7,10 +7,10 @@ import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Plus, Trash2, GripVertical } from 'lucide-react'
+import { Plus, Trash2 } from 'lucide-react'
 
 interface QuestionBuilderProps {
-  onSave: (question: any) => void
+  onSave: (question: Record<string, unknown>) => void
   onCancel: () => void
 }
 
@@ -105,7 +105,7 @@ export default function QuestionBuilder({ onSave, onCancel }: QuestionBuilderPro
   }
 
   const handleSave = () => {
-    const question: any = {
+    const question: Record<string, unknown> = {
       question_text: questionText,
       question_type: questionType,
       options: {}

@@ -5,15 +5,20 @@ import Image from 'next/image'
 
 interface Props {
   examTitle: string
+  onVolumeChange?: (volume: number) => void
 }
 
-export default function Taskbar({ examTitle }: Props) {
+export default function Taskbar({ examTitle, onVolumeChange }: Props) {
   const [currentTime, setCurrentTime] = useState(new Date())
   const [showExitModal, setShowExitModal] = useState(false)
   const [showWifiMenu, setShowWifiMenu] = useState(false)
   const [showVolumeMenu, setShowVolumeMenu] = useState(false)
   const [showLanguageMenu, setShowLanguageMenu] = useState(false)
   const [volume, setVolume] = useState(70)
+
+  useEffect(() => {
+    onVolumeChange?.(volume)
+  }, [volume, onVolumeChange])
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000)
@@ -31,10 +36,6 @@ export default function Taskbar({ examTitle }: Props) {
   const handleExit = () => {
     // Exit logic here
     window.close()
-  }
-
-  const openNewTab = () => {
-    window.open(window.location.href, '_blank')
   }
 
   return (
@@ -124,7 +125,11 @@ export default function Taskbar({ examTitle }: Props) {
                     min="0" 
                     max="100" 
                     value={volume}
-                    onChange={(e) => setVolume(Number(e.target.value))}
+                    onChange={(e) => {
+                      const newVolume = Number(e.target.value)
+                      setVolume(newVolume)
+                      onVolumeChange?.(newVolume)
+                    }}
                     className="flex-1 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500"
                   />
                   <span className="text-sm font-semibold w-8 text-right">{volume}</span>

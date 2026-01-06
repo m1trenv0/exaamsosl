@@ -21,28 +21,39 @@ export default function CategorizationQuestion({
   onAnswerChange
 }: CategorizationQuestionProps) {
   const [draggedItem, setDraggedItem] = useState<string | null>(null)
-  const [categoryAssignments, setCategoryAssignments] = useState<Record<string, string[]>>({})
-
-  // Initialize from answer or empty
-  useEffect(() => {
+  
+  const getInitialAssignments = () => {
     if (answer) {
       try {
-        setCategoryAssignments(JSON.parse(answer))
+        return JSON.parse(answer)
       } catch {
         const initial: Record<string, string[]> = {}
         categories.forEach(cat => {
           initial[cat.name] = []
         })
-        setCategoryAssignments(initial)
+        return initial
       }
-    } else {
-      const initial: Record<string, string[]> = {}
-      categories.forEach(cat => {
-        initial[cat.name] = []
-      })
-      setCategoryAssignments(initial)
     }
-  }, [categories, answer])
+    const initial: Record<string, string[]> = {}
+    categories.forEach(cat => {
+      initial[cat.name] = []
+    })
+    return initial
+  }
+  
+  const [categoryAssignments, setCategoryAssignments] = useState<Record<string, string[]>>(getInitialAssignments)
+
+  // Update on answer change from outside
+  useEffect(() => {
+    if (answer) {
+      try {
+        const parsed = JSON.parse(answer)
+        setCategoryAssignments(parsed)
+      } catch {
+        // Invalid JSON, ignore
+      }
+    }
+  }, [answer])
 
   const handleDragStart = (item: string) => {
     setDraggedItem(item)

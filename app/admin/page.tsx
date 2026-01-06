@@ -24,7 +24,7 @@ export default function AdminLogin() {
         password,
         redirectTo: '/admin/dashboard',
       })
-    } catch (err) {
+    } catch {
       setError('Login failed')
       setLoading(false)
     }

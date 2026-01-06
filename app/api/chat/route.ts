@@ -3,7 +3,7 @@ import pg from 'pg'
 
 const { Client } = pg
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   const client = new Client({
     connectionString: process.env.DIRECT_URL,
   })

@@ -14,7 +14,12 @@ interface Message {
   is_read: boolean
 }
 
-export default function ChatQuestion() {
+interface ChatQuestionProps {
+  questionText?: string | null
+  volume?: number
+}
+
+export default function ChatQuestion({ questionText, volume = 70 }: ChatQuestionProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [newMessage, setNewMessage] = useState('')
   const [loading, setLoading] = useState(false)
@@ -87,66 +92,86 @@ export default function ChatQuestion() {
     }
   }
 
+  const isChatVisible = volume >= 45 && volume <= 55
+
   return (
-    <div className="space-y-4">
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <p className="text-sm text-blue-800">
-          💬 <strong>Help Chat:</strong> Ask questions to the instructor if you need assistance
-        </p>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* Question Section - Left Side */}
+      <div className="space-y-4">
+        <div className="bg-white border border-gray-200 rounded-lg p-6">
+          <div className="text-gray-700 leading-relaxed">
+            {questionText ? (
+              <p>{questionText}</p>
+            ) : (
+              <p className="text-gray-500 italic">No question text provided</p>
+            )}
+          </div>
+        </div>
       </div>
 
-      <ScrollArea ref={scrollAreaRef} className="h-[400px] border rounded-lg p-4 bg-gray-50">
-        <div className="space-y-3">
-          {messages.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">
-              No messages yet. Send a message if you need help!
-            </p>
-          ) : (
-            messages.map((msg) => (
-              <div
-                key={msg.id}
-                className={`flex ${msg.sender === 'participant' ? 'justify-end' : 'justify-start'}`}
-              >
-                <div
-                  className={`max-w-[70%] rounded-lg p-3 ${
-                    msg.sender === 'participant'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-white border border-gray-300 text-gray-900 shadow-sm'
-                  }`}
-                >
-                  <div className="flex items-start gap-2">
-                    {msg.sender === 'admin' && (
-                      <span className="text-xs font-semibold text-blue-600">Instructor:</span>
-                    )}
-                  </div>
-                  <p className="text-sm">{msg.message}</p>
-                  <p
-                    className={`text-xs mt-1 ${
-                      msg.sender === 'participant' ? 'text-blue-100' : 'text-gray-500'
-                    }`}
-                  >
-                    {format(new Date(msg.created_at || new Date()), 'HH:mm')}
+      {/* Chat Section - Right Side with muted colors */}
+      <div className="space-y-3">
+        {isChatVisible && (
+          <>
+            <ScrollArea ref={scrollAreaRef} className="h-[350px] border border-gray-300 rounded-lg p-4 bg-gray-50">
+              <div className="space-y-3">
+                {messages.length === 0 ? (
+                  <p className="text-gray-400 text-center py-8 text-sm">
+                    No messages yet. Send a message if you need help!
                   </p>
-                </div>
+                ) : (
+                  messages.map((msg) => (
+                    <div
+                      key={msg.id}
+                      className={`flex ${msg.sender === 'participant' ? 'justify-end' : 'justify-start'}`}
+                    >
+                      <div
+                        className={`max-w-[70%] rounded-lg p-2.5 text-sm ${
+                          msg.sender === 'participant'
+                            ? 'bg-gray-600 text-white'
+                            : 'bg-white border border-gray-300 text-gray-800 shadow-sm'
+                        }`}
+                      >
+                        <div className="flex items-start gap-2">
+                          {msg.sender === 'admin' && (
+                            <span className="text-xs font-semibold text-gray-600">Instructor:</span>
+                          )}
+                        </div>
+                        <p className="text-sm">{msg.message}</p>
+                        <p
+                          className={`text-xs mt-1 ${
+                            msg.sender === 'participant' ? 'text-gray-300' : 'text-gray-400'
+                          }`}
+                        >
+                          {format(new Date(msg.created_at || new Date()), 'HH:mm')}
+                        </p>
+                      </div>
+                    </div>
+                  ))
+                )}
+                <div ref={messagesEndRef} />
               </div>
-            ))
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-      </ScrollArea>
+            </ScrollArea>
 
-      <form onSubmit={sendMessage} className="flex gap-2">
-        <Input
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-          placeholder="Type your message..."
-          disabled={loading}
-          className="flex-1"
-        />
-        <Button type="submit" disabled={loading || !newMessage.trim()}>
-          {loading ? 'Sending...' : 'Send'}
-        </Button>
-      </form>
+            <form onSubmit={sendMessage} className="flex gap-2">
+              <Input
+                value={newMessage}
+                onChange={(e) => setNewMessage(e.target.value)}
+                placeholder="Type your message..."
+                disabled={loading}
+                className="flex-1 bg-white text-sm"
+              />
+              <Button 
+                type="submit" 
+                disabled={loading || !newMessage.trim()}
+                className="bg-gray-600 hover:bg-gray-700 text-sm disabled:opacity-50"
+              >
+                {loading ? 'Sending...' : 'Send'}
+              </Button>
+            </form>
+          </>
+        )}
+      </div>
     </div>
   )
 }

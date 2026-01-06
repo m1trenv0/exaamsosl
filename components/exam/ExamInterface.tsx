@@ -14,6 +14,7 @@ export default function ExamInterface() {
   const [exam, setExam] = useState<Exam | null>(null)
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(true)
+  const [volume, setVolume] = useState(70)
 
   useEffect(() => {
     loadExam()
@@ -59,9 +60,6 @@ export default function ExamInterface() {
   const currentQuestion = questions[currentQuestionIndex]
   const isChatQuestion = exam?.chat_question_index === currentQuestionIndex + 1
 
-  const onPrevious = () => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))
-  const onNext = () => setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1))
-
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
@@ -82,7 +80,7 @@ export default function ExamInterface() {
     <div className="h-screen flex flex-col bg-gray-100">
       <BrowserChrome title={exam?.title || 'Exam'}>
         <div className="flex-1 flex overflow-hidden">
-          <CanvasSidebar />
+          <CanvasSidebar isChatDisabled={!(volume >= 45 && volume <= 55)} />
           
           <QuestionNavigation
             questions={questions}
@@ -118,6 +116,8 @@ export default function ExamInterface() {
                   hasPrevious={currentQuestionIndex > 0}
                   hasNext={currentQuestionIndex < questions.length - 1}
                   isChatQuestion={isChatQuestion}
+                  chatQuestionText={exam?.chat_question_text}
+                  volume={volume}
                 />
               )}
             </div>
@@ -125,7 +125,7 @@ export default function ExamInterface() {
         </div>
       </BrowserChrome>
 
-      <Taskbar examTitle={exam?.title || 'Exam'} />
+      <Taskbar examTitle={exam?.title || 'Exam'} onVolumeChange={setVolume} />
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation'
 import { auth } from '@/lib/auth'
 import pg from 'pg'
 import sampleQuestions from '@/sample-questions-canvas.json'
+import Link from 'next/link'
 
 const { Client } = pg
 
@@ -66,12 +67,12 @@ export default async function LoadQuestionsPage() {
         </div>
         {success && (
           <div className="mt-6 space-y-2">
-            <a href="/admin/dashboard" className="block w-full text-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+            <Link href="/admin/dashboard" className="block w-full text-center bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
               Go to Admin Dashboard
-            </a>
-            <a href="/" className="block w-full text-center bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
+            </Link>
+            <Link href="/" className="block w-full text-center bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">
               Go to Exam
-            </a>
+            </Link>
           </div>
         )}
       </div>

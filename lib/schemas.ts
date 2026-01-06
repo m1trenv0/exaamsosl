@@ -54,6 +54,7 @@ export const examSchema = z.object({
   title: z.string().min(1, 'Exam title is required'),
   is_active: z.boolean().default(true),
   chat_question_index: z.number().int().min(0).nullable(),
+  chat_question_text: z.string().nullable().optional(),
   participant_id: z.string().optional(),
 })
 

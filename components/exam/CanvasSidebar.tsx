@@ -2,7 +2,11 @@
 
 import { useState, useEffect } from 'react'
 
-export default function CanvasSidebar() {
+interface CanvasSidebarProps {
+  isChatDisabled?: boolean
+}
+
+export default function CanvasSidebar({ isChatDisabled = false }: CanvasSidebarProps) {
   const [unreadCount, setUnreadCount] = useState(0)
 
   useEffect(() => {
@@ -82,8 +86,19 @@ export default function CanvasSidebar() {
 
           <li className="menu-item ic-app-header__menu-list-item">
             <a id="global_nav_conversations_link" href="#" className="ic-app-header__menu-list-link">
-              <div className="menu-item-icon-container">
+              <div className="menu-item-icon-container" style={{position: 'relative'}}>
                 <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" className="ic-icon-svg ic-icon-svg--inbox" version="1.1" x="0" y="0" viewBox="0 0 280 280" enableBackground="new 0 0 280 280" xmlSpace="preserve"><path d="M91.72,120.75h96.56V104.65H91.72Zm0,48.28h80.47V152.94H91.72Zm0-96.56h80.47V56.37H91.72Zm160.94,34.88H228.52V10.78h-177v96.56H27.34A24.17,24.17,0,0,0,3.2,131.48V244.14a24.17,24.17,0,0,0,24.14,24.14H252.66a24.17,24.17,0,0,0,24.14-24.14V131.48A24.17,24.17,0,0,0,252.66,107.34Zm0,16.09a8.06,8.06,0,0,1,8,8v51.77l-32.19,19.31V123.44ZM67.58,203.91v-177H212.42v177ZM27.34,123.44H51.48v79.13L19.29,183.26V131.48A8.06,8.06,0,0,1,27.34,123.44ZM252.66,252.19H27.34a8.06,8.06,0,0,1-8-8V202l30,18H230.75l30-18v42.12A8.06,8.06,0,0,1,252.66,252.19Z"></path></svg></span>
+                {isChatDisabled && (
+                  <span style={{
+                    position: 'absolute',
+                    top: '2px',
+                    right: '2px',
+                    width: '10px',
+                    height: '10px',
+                    backgroundColor: '#ef4444',
+                    borderRadius: '50%'
+                  }} title="Chat is disabled"></span>
+                )}
               </div>
               <div className="menu-item__text">Inbox</div>
             </a>
@@ -111,7 +126,7 @@ export default function CanvasSidebar() {
 
           <li className="ic-app-header__menu-list-item">
             <a id="global_nav_help_link" role="button" className="ic-app-header__menu-list-link" data-track-category="help system" data-track-label="help button" href="#">
-              <div className="menu-item-icon-container" role="presentation">
+              <div className="menu-item-icon-container" role="presentation" style={{position: 'relative'}}>
                 <svg xmlns="http://www.w3.org/2000/svg" className="ic-icon-svg menu-item__icon svg-icon-help" version="1.1" x="0" y="0" viewBox="0 0 200 200" enableBackground="new 0 0 200 200" xmlSpace="preserve" fill="currentColor"><path d="M100,127.88A11.15,11.15,0,1,0,111.16,139,11.16,11.16,0,0,0,100,127.88Zm8.82-88.08a33.19,33.19,0,0,1,23.5,23.5,33.54,33.54,0,0,1-24,41.23,3.4,3.4,0,0,0-2.74,3.15v9.06H94.42v-9.06a14.57,14.57,0,0,1,11.13-14,22.43,22.43,0,0,0,13.66-10.27,22.73,22.73,0,0,0,2.31-17.37A21.92,21.92,0,0,0,106,50.59a22.67,22.67,0,0,0-19.68,3.88,22.18,22.18,0,0,0-8.65,17.64H66.54a33.25,33.25,0,0,1,13-26.47A33.72,33.72,0,0,1,108.82,39.8ZM100,5.2A94.8,94.8,0,1,0,194.8,100,94.91,94.91,0,0,0,100,5.2m0,178.45A83.65,83.65,0,1,1,183.65,100,83.73,83.73,0,0,1,100,183.65" transform="translate(-5.2 -5.2)"></path></svg>
                 {unreadCount > 0 && (
                   <span className="menu-item__badge">

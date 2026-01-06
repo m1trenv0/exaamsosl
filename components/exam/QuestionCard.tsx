@@ -15,6 +15,8 @@ interface Props {
   hasPrevious: boolean
   hasNext: boolean
   isChatQuestion: boolean
+  chatQuestionText?: string | null
+  volume?: number
 }
 
 export default function QuestionCard({
@@ -27,6 +29,8 @@ export default function QuestionCard({
   hasPrevious,
   hasNext,
   isChatQuestion,
+  chatQuestionText,
+  volume,
 }: Props) {
   return (
     <div className="border border-[#C7CDD1] rounded bg-white shadow-sm relative">
@@ -61,10 +65,7 @@ export default function QuestionCard({
       <div className="p-6">
         {isChatQuestion ? (
           <div>
-            <h3 className="text-gray-900 text-[15px] font-semibold mb-5">
-              Help & Support Chat
-            </h3>
-            <ChatQuestion />
+            <ChatQuestion questionText={chatQuestionText} volume={volume} />
           </div>
         ) : (
           <>

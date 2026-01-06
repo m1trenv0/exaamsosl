@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { Question } from '@/lib/schemas'
 
 interface Props {
@@ -14,9 +13,7 @@ export default function QuestionNavigation({
   questions,
   currentIndex,
   onQuestionSelect,
-  answers
 }: Props) {
-  const [isExpanded, setIsExpanded] = useState(false)
 
   return (
     <div className="question-nav">

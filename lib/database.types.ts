@@ -17,6 +17,7 @@ export interface Database {
           title: string
           is_active: boolean
           chat_question_index: number | null
+          chat_question_text: string | null
           participant_id: string | null
           metadata: Json
         }
@@ -27,6 +28,7 @@ export interface Database {
           title?: string
           is_active?: boolean
           chat_question_index?: number | null
+          chat_question_text?: string | null
           participant_id?: string | null
           metadata?: Json
         }
@@ -37,6 +39,7 @@ export interface Database {
           title?: string
           is_active?: boolean
           chat_question_index?: number | null
+          chat_question_text?: string | null
           participant_id?: string | null
           metadata?: Json
         }
