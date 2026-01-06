@@ -88,18 +88,22 @@ export default function ExamInterface() {
             currentIndex={currentQuestionIndex}
             answers={answers}
             onQuestionSelect={setCurrentQuestionIndex}
-            examTitle={exam.title}
           />
           
           <div className="flex-1 overflow-auto bg-white">
-            <div className="max-w-4xl mx-auto p-8">
-              <div className="mb-6">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                  {exam.title}
-                </h1>
-                <p className="text-gray-600">
-                  Question {currentQuestionIndex + 1} of {questions.length}
-                </p>
+            <div className="p-6">
+              {/* Top Action Bar */}
+              <div className="flex justify-end items-center mb-6">
+                <div className="flex space-x-2">
+                  <button className="bg-white border border-gray-300 px-4 py-1.5 rounded text-[13px] text-gray-600 font-medium hover:bg-gray-50">Return</button>
+                  <button 
+                    onClick={() => setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1))}
+                    disabled={currentQuestionIndex >= questions.length - 1}
+                    className="bg-white border border-gray-300 px-4 py-1.5 rounded text-[13px] text-gray-600 font-medium hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    Next
+                  </button>
+                </div>
               </div>
 
               {currentQuestion && (

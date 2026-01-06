@@ -200,7 +200,76 @@
     border-top: 1px solid rgba(0,0,0,0.1);
 }
 
-/* Canvas Sidebar Question Navigator - Exact Canvas LMS Style */
+/* Question Navigation Sidebar */
+.question-nav {
+    width: 50px;
+    background: #fff;
+    border-right: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+    padding-top: 8px;
+    flex-shrink: 0;
+}
+
+.question-nav-icons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e7eb;
+    gap: 12px;
+}
+
+.question-nav-icons i {
+    color: #9ca3af;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.question-nav-item {
+    width: 100%;
+    text-align: center;
+    padding: 10px 0;
+    cursor: pointer;
+    position: relative;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.question-nav-item:hover {
+    background-color: #f9fafb;
+}
+
+.question-nav-item.active {
+    font-weight: 600;
+    color: #111827;
+    background-color: #f3f4f6;
+}
+
+.question-nav-item.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #111827;
+}
+
+.question-nav-bottom {
+    margin-top: auto;
+    padding: 12px 0;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: center;
+}
+
+.question-nav-bottom i {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+/* Old Canvas styles - remove if not used */
 .canvas-sidebar-wrapper {
     height: 100%;
     overflow-x: hidden;
