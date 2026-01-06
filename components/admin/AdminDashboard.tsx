@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { useSession, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
@@ -9,26 +9,12 @@ import QuestionsManager from './QuestionsManager'
 import ChatManager from './ChatManager'
 import ExamSettings from './ExamSettings'
 
-interface User {
-  id: string
-  email?: string
-}
-
 export default function AdminDashboard() {
-  const [user, setUser] = useState<User | null>(null)
+  const { data: session } = useSession()
   const router = useRouter()
-  const supabase = createClient()
-
-  useEffect(() => {
-    const getUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession()
-      setUser(session?.user ?? null)
-    }
-    getUser()
-  }, [supabase.auth])
 
   const handleLogout = async () => {
-    await supabase.auth.signOut()
+    await signOut({ redirect: false })
     router.push('/admin')
     router.refresh()
   }
@@ -45,7 +31,7 @@ export default function AdminDashboard() {
             </div>
             <div className="flex items-center gap-4">
               <span className="text-sm text-gray-600">
-                {user?.email}
+                {session?.user?.email}
               </span>
               <Button variant="outline" onClick={handleLogout}>
                 Logout

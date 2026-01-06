@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { createClient } from '@/lib/supabase/client'
+import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -14,7 +14,6 @@ export default function AdminLogin() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const router = useRouter()
-  const supabase = createClient()
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -22,19 +21,20 @@ export default function AdminLogin() {
     setError('')
 
     try {
-      const { data, error } = await supabase.auth.signInWithPassword({
+      const result = await signIn('credentials', {
         email,
         password,
+        redirect: false,
       })
 
-      if (error) throw error
-
-      if (data.session) {
+      if (result?.error) {
+        setError('Invalid email or password')
+      } else {
         router.push('/admin/dashboard')
         router.refresh()
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to login')
+      setError('An error occurred')
     } finally {
       setLoading(false)
     }
