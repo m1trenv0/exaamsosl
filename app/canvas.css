@@ -200,14 +200,249 @@
     border-top: 1px solid rgba(0,0,0,0.1);
 }
 
-/* Question Navigation Sidebar */
-.question-nav {
-    width: 50px;
-    background: #fff;
-    border-right: 1px solid #e5e7eb;
+/* Canvas Sidebar Question Navigator - Exact Canvas LMS Style */
+.canvas-sidebar-wrapper {
+    height: 100%;
+    overflow-x: hidden;
+}
+
+.canvas-sidebar {
+    box-sizing: border-box;
+    width: 3.75rem; /* 60px */
+    background-color: rgb(255, 255, 255);
+    color: rgb(51, 68, 81);
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    z-index: 5555;
+    transition: 300ms;
+    border-width: 0.0625rem;
+    border-style: solid;
+    border-color: rgb(232, 234, 236);
+    border-left: none;
+    font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    flex-shrink: 0;
+}
+
+.canvas-sidebar-nav {
     display: flex;
     flex-direction: column;
-    padding-top: 8px;
+    height: 100%;
+    font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0;
+}
+
+/* Header */
+.canvas-sidebar-header {
+    display: flex;
+    flex-direction: row;
+    padding: 0.75rem 0.5rem;
+    flex-shrink: 0;
+    border-bottom: 0.0625rem solid rgb(232, 234, 236);
+}
+
+.canvas-sidebar-header-content {
+    flex: 1;
+}
+
+.canvas-sidebar-heading {
+    font-size: 0.875rem;
+    font-weight: 700;
+    margin: 0;
+    color: rgb(39, 53, 64);
+    visibility: hidden; /* Hidden in collapsed state */
+}
+
+.canvas-sidebar-toggle-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.canvas-sidebar-toggle-btn {
+    margin: 0;
+    padding: 0;
+    border-radius: 0.25rem;
+    border-width: 0;
+    width: auto;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-family: LatoWeb, Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    max-width: 100%;
+    overflow: visible;
+    display: inline-block;
+    vertical-align: middle;
+    color: rgb(39, 53, 64);
+    background: none;
+    position: relative;
+    appearance: none;
+    text-decoration: none;
+    touch-action: manipulation;
+    transition: background-color 0.2s;
+}
+
+.canvas-sidebar-toggle-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.canvas-sidebar-toggle-icon svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+/* Pinned Section */
+.canvas-pinned-section {
+    border-bottom: 0.0625rem solid rgb(232, 234, 236);
+    padding: 0.75rem 0.5rem;
+}
+
+.canvas-pinned-header {
+    margin-bottom: 0.5rem;
+}
+
+.canvas-pinned-icon-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.canvas-pinned-icon {
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.canvas-pinned-icon svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+.canvas-pinned-empty {
+    height: 0.5rem;
+}
+
+/* Title and Instructions Sections */
+.canvas-title-section,
+.canvas-instructions-section {
+    border-right: 0.25rem solid rgb(255, 255, 255);
+    border-bottom: 0.0625rem solid rgb(232, 234, 236);
+    padding: 0.75rem 0.5rem;
+    text-align: center;
+}
+
+.canvas-title-link,
+.canvas-instructions-link {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.canvas-title-icon,
+.canvas-instructions-icon {
+    display: inline-block;
+    font-size: 1.5rem;
+}
+
+.canvas-title-icon svg,
+.canvas-instructions-icon svg {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+}
+
+.canvas-title-text,
+.canvas-instructions-text {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+    padding: 0 0.5rem;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Questions List */
+.canvas-questions-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.canvas-question-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.canvas-question-dot-wrapper {
+    width: 0.625rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 0.25rem;
+    flex-shrink: 0;
+}
+
+.canvas-question-unanswered-dot {
+    width: 0.375rem;
+    height: 0.375rem;
+    background-color: rgb(45, 59, 69);
+    border-radius: 50%;
+}
+
+.canvas-question-item {
+    border-right: 0.25rem solid rgb(255, 255, 255);
+    border-bottom: 0.0625rem solid rgb(232, 234, 236);
+    padding: 0.75rem 0;
+    text-align: center;
+    flex: 1;
+    min-width: 0;
+}
+
+.canvas-question-item.active {
+    border-right-color: rgb(14, 121, 178);
+    background-color: rgb(245, 250, 253);
+}
+
+.canvas-question-link {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.canvas-question-number {
+    font-size: 1rem;
+    font-weight: 400;
+    color: rgb(39, 53, 64);
+}
+
+.canvas-question-item.active .canvas-question-number {
+    font-weight: 700;
+}
+
+/* Screen reader only content */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Old question nav styles - keeping for backwards compatibility */
+.question-nav {
+    width: 65px;
+    background: #fff;
+    border-right: 1px solid #C7CDD1;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
 }
 
 .question-nav-icons {
@@ -228,11 +463,12 @@
 .question-nav-item {
     width: 100%;
     text-align: center;
-    padding: 10px 0;
+    padding: 14px 0;
     cursor: pointer;
     position: relative;
-    font-size: 13px;
-    color: #6b7280;
+    font-size: 15px;
+    color: #6B7280;
+    font-weight: 400;
 }
 
 .question-nav-item:hover {
@@ -242,7 +478,7 @@
 .question-nav-item.active {
     font-weight: 600;
     color: #111827;
-    background-color: #f3f4f6;
+    background-color: #FFFFFF;
 }
 
 .question-nav-item.active::before {
@@ -252,7 +488,7 @@
     top: 0;
     bottom: 0;
     width: 3px;
-    background-color: #111827;
+    background-color: #394B58;
 }
 
 .question-nav-bottom {

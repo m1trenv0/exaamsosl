@@ -83,41 +83,40 @@ export default function ExamInterface() {
         <div className="flex-1 flex overflow-hidden">
           <CanvasSidebar />
           
-          <div className="flex-1 flex overflow-hidden">
-            <div className="flex-1 overflow-auto bg-white">
-              <div className="max-w-4xl mx-auto p-8">
-                <div className="mb-6">
-                  <h1 className="text-3xl font-bold text-gray-900 mb-2">
-                    {exam.title}
-                  </h1>
-                  <p className="text-gray-600">
-                    Question {currentQuestionIndex + 1} of {questions.length}
-                  </p>
-                </div>
-
-                {currentQuestion && (
-                  <QuestionCard
-                    question={currentQuestion}
-                    questionNumber={currentQuestionIndex + 1}
-                    answer={answers[currentQuestion.id!] || ''}
-                    onAnswerChange={(answer) => handleAnswerChange(currentQuestion.id!, answer)}
-                    onPrevious={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
-                    onNext={() => setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1))}
-                    hasPrevious={currentQuestionIndex > 0}
-                    hasNext={currentQuestionIndex < questions.length - 1}
-                    isChatQuestion={exam?.chat_question_index === currentQuestionIndex + 1}
-                    onChatToggle={() => setChatOpen(!chatOpen)}
-                  />
-                )}
+          <QuestionNavigation
+            questions={questions}
+            currentIndex={currentQuestionIndex}
+            answers={answers}
+            onQuestionSelect={setCurrentQuestionIndex}
+            examTitle={exam.title}
+          />
+          
+          <div className="flex-1 overflow-auto bg-white">
+            <div className="max-w-4xl mx-auto p-8">
+              <div className="mb-6">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                  {exam.title}
+                </h1>
+                <p className="text-gray-600">
+                  Question {currentQuestionIndex + 1} of {questions.length}
+                </p>
               </div>
-            </div>
 
-            <QuestionNavigation
-              questions={questions}
-              currentIndex={currentQuestionIndex}
-              answers={answers}
-              onQuestionSelect={setCurrentQuestionIndex}
-            />
+              {currentQuestion && (
+                <QuestionCard
+                  question={currentQuestion}
+                  questionNumber={currentQuestionIndex + 1}
+                  answer={answers[currentQuestion.id!] || ''}
+                  onAnswerChange={(answer) => handleAnswerChange(currentQuestion.id!, answer)}
+                  onPrevious={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
+                  onNext={() => setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1))}
+                  hasPrevious={currentQuestionIndex > 0}
+                  hasNext={currentQuestionIndex < questions.length - 1}
+                  isChatQuestion={exam?.chat_question_index === currentQuestionIndex + 1}
+                  onChatToggle={() => setChatOpen(!chatOpen)}
+                />
+              )}
+            </div>
           </div>
         </div>
       </BrowserChrome>
