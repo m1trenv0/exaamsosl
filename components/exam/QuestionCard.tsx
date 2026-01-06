@@ -1,4 +1,8 @@
 import { Question } from '@/lib/schemas'
+import TrueFalseQuestion from './question-types/TrueFalseQuestion'
+import MultipleSelectQuestion from './question-types/MultipleSelectQuestion'
+import CategorizationQuestion from './question-types/CategorizationQuestion'
+import EssayRichQuestion from './question-types/EssayRichQuestion'
 
 interface Props {
   question: Question
@@ -31,6 +35,10 @@ export default function QuestionCard({
       case 'text': return 'Fill in the Blank'
       case 'essay': return 'Essay Question'
       case 'code': return 'Code Question'
+      case 'true_false': return 'True/False'
+      case 'multiple_select': return 'Multiple Select'
+      case 'categorization': return 'Categorization'
+      case 'essay_rich': return 'Essay Question'
       default: return 'Question'
     }
   }
@@ -107,6 +115,38 @@ export default function QuestionCard({
             value={answer}
             onChange={(e) => onAnswerChange(e.target.value)}
             className="border border-gray-300 bg-gray-50 px-3 py-2 rounded text-[13px] w-full max-w-md focus:outline-none focus:ring-1 focus:ring-blue-400 focus:border-blue-400 focus:bg-white"
+          />
+        )}
+
+        {question.question_type === 'true_false' && (
+          <TrueFalseQuestion
+            answer={answer}
+            onAnswerChange={onAnswerChange}
+          />
+        )}
+
+        {question.question_type === 'multiple_select' && question.options?.options && (
+          <MultipleSelectQuestion
+            options={question.options.options}
+            answer={answer}
+            onAnswerChange={onAnswerChange}
+          />
+        )}
+
+        {question.question_type === 'categorization' && question.options?.categories && question.options?.possibleAnswers && (
+          <CategorizationQuestion
+            categories={question.options.categories}
+            possibleAnswers={question.options.possibleAnswers}
+            answer={answer}
+            onAnswerChange={onAnswerChange}
+          />
+        )}
+
+        {question.question_type === 'essay_rich' && (
+          <EssayRichQuestion
+            answer={answer}
+            onAnswerChange={onAnswerChange}
+            wordLimit={question.options?.wordLimit}
           />
         )}
 

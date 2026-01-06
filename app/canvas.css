@@ -8,6 +8,58 @@
     --ic-brand-global-nav-menu-item__text-color--active: #5dbca3;
     --ic-brand-primary: #00a685;
     --active-background: #FFFFFF;
+    
+    /* Question Card Styles */
+    --canvas-border-color: #C7CDD1;
+    --canvas-bg-light: #F5F5F5;
+    --canvas-text-dark: #2D3B45;
+}
+
+/* Rich Text Editor Prose Styles */
+.prose {
+    max-width: none;
+}
+
+.prose p {
+    margin-bottom: 1em;
+}
+
+.prose h3 {
+    font-size: 1.25em;
+    font-weight: 600;
+    margin-bottom: 0.5em;
+    margin-top: 1em;
+}
+
+.prose ul, .prose ol {
+    padding-left: 1.5em;
+    margin-bottom: 1em;
+}
+
+.prose li {
+    margin-bottom: 0.25em;
+}
+
+.prose a {
+    color: #0374B5;
+    text-decoration: underline;
+}
+
+.prose a:hover {
+    color: #0C5A86;
+}
+
+.prose img {
+    max-width: 100%;
+    height: auto;
+    margin: 1em 0;
+}
+
+.prose code {
+    background-color: #F5F5F5;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
 }
 
 .ic-app-header {

@@ -1,7 +1,16 @@
 import { z } from 'zod'
 
 // Question Types
-export const questionTypeEnum = z.enum(['multiple_choice', 'text', 'essay', 'code'])
+export const questionTypeEnum = z.enum([
+  'multiple_choice', 
+  'text', 
+  'essay', 
+  'code',
+  'true_false',
+  'multiple_select',
+  'categorization',
+  'essay_rich'
+])
 
 export const questionSchema = z.object({
   id: z.string().uuid().optional(),
@@ -11,7 +20,16 @@ export const questionSchema = z.object({
   question_type: questionTypeEnum,
   options: z.object({
     options: z.array(z.string()).optional(),
-    correct: z.number().int().optional(),
+    correct: z.union([z.number().int(), z.array(z.number().int())]).optional(),
+    categories: z.array(z.object({
+      name: z.string(),
+      items: z.array(z.string())
+    })).optional(),
+    possibleAnswers: z.array(z.string()).optional(),
+    wordLimit: z.object({
+      min: z.number().optional(),
+      max: z.number().optional()
+    }).optional()
   }).optional(),
   metadata: z.record(z.string(), z.unknown()).optional(),
 })
@@ -73,11 +91,43 @@ export const EXAMPLE_QUESTIONS_JSON = JSON.stringify({
     },
     {
       order_index: 1,
-      question_text: "Explain the concept of closure in JavaScript.",
-      question_type: "essay",
+      question_text: "Select all programming languages:",
+      question_type: "multiple_select",
+      options: {
+        options: ["JavaScript", "HTML", "Python", "CSS", "Java"],
+        correct: [0, 2, 4]
+      }
     },
     {
       order_index: 2,
+      question_text: "JavaScript is a compiled language.",
+      question_type: "true_false",
+      options: {
+        correct: 1
+      }
+    },
+    {
+      order_index: 3,
+      question_text: "Match colors with shapes:",
+      question_type: "categorization",
+      options: {
+        categories: [
+          { name: "Colors", items: ["Red", "Blue"] },
+          { name: "Shapes", items: ["Square", "Circle"] }
+        ],
+        possibleAnswers: ["Red", "Blue", "Square", "Circle", "Green"]
+      }
+    },
+    {
+      order_index: 4,
+      question_text: "Explain the concept of closure in JavaScript.",
+      question_type: "essay_rich",
+      options: {
+        wordLimit: { min: 100, max: 150 }
+      }
+    },
+    {
+      order_index: 5,
       question_text: "Write a function to reverse a string.",
       question_type: "code",
     }
