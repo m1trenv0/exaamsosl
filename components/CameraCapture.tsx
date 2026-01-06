@@ -72,19 +72,19 @@ export default function CameraCapture({ onCapture, disabled }: CameraCaptureProp
     startCamera()
   }, [startCamera])
 
-  const confirmPhoto = useCallback(() => {
-    if (capturedImage) {
-      onCapture(capturedImage)
-      handleClose()
-    }
-  }, [capturedImage, onCapture])
-
   const handleClose = useCallback(() => {
     stopCamera()
     setCapturedImage(null)
     setError(null)
     setIsOpen(false)
   }, [stopCamera])
+
+  const confirmPhoto = useCallback(() => {
+    if (capturedImage) {
+      onCapture(capturedImage)
+      handleClose()
+    }
+  }, [capturedImage, onCapture, handleClose])
 
   const handleOpen = useCallback(() => {
     setIsOpen(true)
@@ -134,6 +134,7 @@ export default function CameraCapture({ onCapture, disabled }: CameraCaptureProp
             )}
 
             {capturedImage && (
+              // eslint-disable-next-line @next/next/no-img-element
               <img
                 src={capturedImage}
                 alt="Captured"

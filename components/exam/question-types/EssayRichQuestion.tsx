@@ -38,10 +38,10 @@ export default function EssayRichQuestion({
   const [isUnderline, setIsUnderline] = useState(false)
 
   useEffect(() => {
-    if (editorRef.current && !editorRef.current.innerHTML) {
-      editorRef.current.innerHTML = answer || ''
+    if (editorRef.current && !editorRef.current.innerHTML && answer) {
+      editorRef.current.innerHTML = answer
     }
-  }, [])
+  }, [answer])
 
   const updateWordCount = (text: string) => {
     const plainText = text.replace(/<[^>]*>/g, '').trim()

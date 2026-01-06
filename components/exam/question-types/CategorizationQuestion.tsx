@@ -48,7 +48,13 @@ export default function CategorizationQuestion({
     if (answer) {
       try {
         const parsed = JSON.parse(answer)
-        setCategoryAssignments(parsed)
+        // Use functional update to avoid direct setState in effect
+        setCategoryAssignments((prev) => {
+          if (JSON.stringify(prev) !== JSON.stringify(parsed)) {
+            return parsed
+          }
+          return prev
+        })
       } catch {
         // Invalid JSON, ignore
       }

@@ -103,6 +103,7 @@ export default function HiddenChat() {
                   }`}
                 >
                   {msg.image_data && (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={msg.image_data}
                       alt="Shared"
