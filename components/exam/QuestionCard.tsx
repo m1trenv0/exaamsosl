@@ -91,62 +91,61 @@ export default function QuestionCard({
               </div>
             )}
 
-        {question.question_type === 'text' && (
-          <div className="flex items-center gap-2">
-            <input
-              type="text"
-              placeholder="type your answer..."
-              value={answer}
-              onChange={(e) => onAnswerChange(e.target.value)}
-              className="border border-[#C7CDD1] bg-white px-3 py-2 text-[13px] w-64 rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
-            />
-            <span className="text-[#6B7280] text-[13px]">+ de Grote</span>
-          </div>
-        )}
+            {question.question_type === 'text' && (
+              <div className="w-full">
+                <input
+                  type="text"
+                  placeholder="type your answer..."
+                  value={answer}
+                  onChange={(e) => onAnswerChange(e.target.value)}
+                  className="border border-[#C7CDD1] bg-white px-3 py-2 text-[13px] w-full max-w-md rounded focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+                />
+              </div>
+            )}
 
-        {question.question_type === 'true_false' && (
-          <TrueFalseQuestion
-            answer={answer}
-            onAnswerChange={onAnswerChange}
-          />
-        )}
+            {question.question_type === 'true_false' && (
+              <TrueFalseQuestion
+                answer={answer}
+                onAnswerChange={onAnswerChange}
+              />
+            )}
 
-        {question.question_type === 'multiple_select' && question.options?.options && (
-          <MultipleSelectQuestion
-            options={question.options.options}
-            answer={answer}
-            onAnswerChange={onAnswerChange}
-          />
-        )}
+            {question.question_type === 'multiple_select' && question.options?.options && (
+              <MultipleSelectQuestion
+                options={question.options.options}
+                answer={answer}
+                onAnswerChange={onAnswerChange}
+              />
+            )}
 
-        {question.question_type === 'categorization' && question.options?.categories && question.options?.possibleAnswers && (
-          <CategorizationQuestion
-            categories={question.options.categories}
-            possibleAnswers={question.options.possibleAnswers}
-            answer={answer}
-            onAnswerChange={onAnswerChange}
-          />
-        )}
+            {question.question_type === 'categorization' && question.options?.categories && question.options?.possibleAnswers && (
+              <CategorizationQuestion
+                categories={question.options.categories}
+                possibleAnswers={question.options.possibleAnswers}
+                answer={answer}
+                onAnswerChange={onAnswerChange}
+              />
+            )}
 
-        {question.question_type === 'essay_rich' && (
-          <EssayRichQuestion
-            answer={answer}
-            onAnswerChange={onAnswerChange}
-            wordLimit={question.options?.wordLimit}
-          />
-        )}
+            {question.question_type === 'essay_rich' && (
+              <EssayRichQuestion
+                answer={answer}
+                onAnswerChange={onAnswerChange}
+                wordLimit={question.options?.wordLimit}
+              />
+            )}
 
-        {(question.question_type === 'essay' || question.question_type === 'code') && (
-          <textarea
-            placeholder="Type your answer here..."
-            value={answer}
-            onChange={(e) => onAnswerChange(e.target.value)}
-            rows={question.question_type === 'code' ? 12 : 6}
-            className={`border border-gray-300 bg-white px-4 py-3 rounded text-[14px] w-full focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 resize-y ${
-              question.question_type === 'code' ? 'font-mono' : ''
-            }`}
-          />
-        )}
+            {(question.question_type === 'essay' || question.question_type === 'code') && (
+              <textarea
+                placeholder="Type your answer here..."
+                value={answer}
+                onChange={(e) => onAnswerChange(e.target.value)}
+                rows={question.question_type === 'code' ? 12 : 6}
+                className={`border border-gray-300 bg-white px-4 py-3 rounded text-[14px] w-full focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 resize-y ${
+                  question.question_type === 'code' ? 'font-mono' : ''
+                }`}
+              />
+            )}
           </>
         )}
       </div>

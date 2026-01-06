@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test API</title>
+</head>
+<body>
+    <h1>Testing API Response</h1>
+    <pre id="output"></pre>
+    
+    <script>
+        async function test() {
+            try {
+                const response = await fetch('http://localhost:3000/api/exam');
+                const data = await response.json();
+                
+                const output = document.getElementById('output');
+                output.textContent = 'Total questions: ' + data.questions.length + '\n\n';
+                
+                const q10 = data.questions.find(q => q.order_index === 10);
+                output.textContent += '=== Question 10 ===\n';
+                output.textContent += 'Type: ' + q10.question_type + '\n';
+                output.textContent += 'Has options: ' + (!!q10.options) + '\n';
+                output.textContent += 'Options type: ' + typeof q10.options + '\n';
+                output.textContent += 'Options value: ' + JSON.stringify(q10.options, null, 2) + '\n\n';
+                
+                const q11 = data.questions.find(q => q.order_index === 11);
+                output.textContent += '=== Question 11 ===\n';
+                output.textContent += 'Type: ' + q11.question_type + '\n';
+                output.textContent += 'Options: ' + JSON.stringify(q11.options, null, 2) + '\n\n';
+                
+                const q0 = data.questions.find(q => q.order_index === 0);
+                output.textContent += '=== Question 0 ===\n';
+                output.textContent += 'Type: ' + q0.question_type + '\n';
+                output.textContent += 'Options: ' + JSON.stringify(q0.options, null, 2) + '\n';
+            } catch (error) {
+                document.getElementById('output').textContent = 'Error: ' + error.message;
+            }
+        }
+        
+        test();
+    </script>
+</body>
+</html>

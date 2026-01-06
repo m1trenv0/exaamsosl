@@ -1,0 +1,254 @@
+﻿{
+    "exam":  {
+                 "id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                 "title":  "Canvas nigger",
+                 "is_active":  true,
+                 "chat_question_index":  4,
+                 "created_at":  "2026-01-06T14:07:04.542Z",
+                 "chat_question_text":  null
+             },
+    "questions":  [
+                      {
+                          "id":  "bd138f65-9df1-4787-863f-d68b5100771f",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  0,
+                          "question_text":  "What is the Board of Directors? How is it appointed and what are its main responsibilities?",
+                          "question_type":  "text",
+                          "options":  null,
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:07:59.460Z"
+                      },
+                      {
+                          "id":  "595bb6ab-66e7-4f85-baae-643153d0309e",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  1,
+                          "question_text":  "Explain the difference between internal and external stakeholders. Give two examples of each.",
+                          "question_type":  "text",
+                          "options":  null,
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:07:59.529Z"
+                      },
+                      {
+                          "id":  "18a6dfac-74e8-47d4-baa6-3445c7fdd4b8",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  2,
+                          "question_text":  "What is a financial transaction? Give three examples.",
+                          "question_type":  "text",
+                          "options":  null,
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:07:59.598Z"
+                      },
+                      {
+                          "id":  "888593e3-6231-4c2d-b052-a264db0aebde",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  3,
+                          "question_text":  "What are the two main sides of a balance sheet?",
+                          "question_type":  "text",
+                          "options":  null,
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:07:59.667Z"
+                      },
+                      {
+                          "id":  "387b798c-764d-45e0-8f24-13d76263a625",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  4,
+                          "question_text":  "Explain the difference between CAPEX and OPEX. Give an example for each.",
+                          "question_type":  "text",
+                          "options":  null,
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:07:59.736Z"
+                      },
+                      {
+                          "id":  "9da553a5-e789-4ec6-911b-2ad607a30c2c",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  5,
+                          "question_text":  "What does social security mean in Belgium? Who pays it and what is it used for?",
+                          "question_type":  "text",
+                          "options":  null,
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:07:59.804Z"
+                      },
+                      {
+                          "id":  "0b5b2e39-83b8-40ee-82f2-ce81cf1410d5",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  6,
+                          "question_text":  "Mike earns â¬3000 gross per month. Calculate his net salary and the total cost to the employer.\nGiven: Employee social security: 13.07%, withholding tax: 30%, employer contribution: 25%.",
+                          "question_type":  "text",
+                          "options":  {
+
+                                      },
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:07:59.873Z"
+                      },
+                      {
+                          "id":  "b570b4d6-dcd4-4222-8c40-3b6a60b09fdc",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  7,
+                          "question_text":  "Syrine earns â¬1700 net per month. Calculate her gross salary and the total cost to the employer.\nGiven: Employee social security: 13.07%, withholding tax: 27%, employer contribution: 25%.",
+                          "question_type":  "text",
+                          "options":  null,
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:07:59.942Z"
+                      },
+                      {
+                          "id":  "6631cb71-e1da-4544-961b-a5cf89fc26f1",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  8,
+                          "question_text":  "What is depreciation (amortization)? Why is it recorded even though no cash is paid?",
+                          "question_type":  "text",
+                          "options":  null,
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:08:00.011Z"
+                      },
+                      {
+                          "id":  "c41bba1f-799a-451b-91fa-74940ec1afb1",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  9,
+                          "question_text":  "What is the basic accounting equation?",
+                          "question_type":  "text",
+                          "options":  null,
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:08:00.080Z"
+                      },
+                      {
+                          "id":  "407c9fa6-47be-4923-b754-28c6ad8911b4",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  10,
+                          "question_text":  "Which of the following ratios measures liquidity? Select all that apply.",
+                          "question_type":  "multiple_select",
+                          "options":  {
+                                          "correct":  [
+                                                          0,
+                                                          2,
+                                                          4
+                                                      ],
+                                          "options":  [
+                                                          "Current Ratio",
+                                                          "Debt Ratio",
+                                                          "Quick Ratio",
+                                                          "ROE (Return on Equity)",
+                                                          "Cash Ratio",
+                                                          "Solvency Degree"
+                                                      ]
+                                      },
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:08:00.149Z"
+                      },
+                      {
+                          "id":  "4c6a0c78-307e-4a20-b4c7-a8d25a3151d7",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  11,
+                          "question_text":  "Which formula correctly calculates the Current Ratio?",
+                          "question_type":  "multiple_choice",
+                          "options":  {
+                                          "correct":  0,
+                                          "options":  [
+                                                          "Current assets / Short-term liabilities",
+                                                          "Equity / Total assets",
+                                                          "Net profit / Equity",
+                                                          "Total debts / Total assets"
+                                                      ]
+                                      },
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:08:00.219Z"
+                      },
+                      {
+                          "id":  "75c1879c-9a0e-4998-be36-5f7f72fd3aaa",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  12,
+                          "question_text":  "Which formula correctly calculates ROE (Return on Equity)?",
+                          "question_type":  "multiple_choice",
+                          "options":  {
+                                          "correct":  0,
+                                          "options":  [
+                                                          "Net profit / Equity",
+                                                          "Net profit / Total assets",
+                                                          "Equity / Total assets",
+                                                          "Current assets / Short-term liabilities"
+                                                      ]
+                                      },
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:08:00.287Z"
+                      },
+                      {
+                          "id":  "7147161a-db16-4802-aa72-b6acb317c542",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  13,
+                          "question_text":  "Depreciation is a cash expense.",
+                          "question_type":  "true_false",
+                          "options":  {
+                                          "correct":  1
+                                      },
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:08:00.356Z"
+                      },
+                      {
+                          "id":  "cd78cf5c-3806-4fb9-8471-0146c771dae9",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  14,
+                          "question_text":  "Assets always have a debit balance.",
+                          "question_type":  "true_false",
+                          "options":  {
+                                          "correct":  0
+                                      },
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:08:00.425Z"
+                      },
+                      {
+                          "id":  "c775835a-4513-46a4-b74a-a201c9e18798",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  15,
+                          "question_text":  "The income statement shows the financial position at a specific moment in time.",
+                          "question_type":  "true_false",
+                          "options":  {
+                                          "correct":  1
+                                      },
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:08:00.494Z"
+                      },
+                      {
+                          "id":  "a07b4f1f-fde0-4a76-a41a-f19b862b7611",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  16,
+                          "question_text":  "When a company buys equipment for cash, total assets remain unchanged.",
+                          "question_type":  "true_false",
+                          "options":  {
+                                          "correct":  1
+                                      },
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:08:00.562Z"
+                      },
+                      {
+                          "id":  "b0194c6d-be88-4d4a-ad0b-2986b15789ae",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  17,
+                          "question_text":  "Profit always increases equity.",
+                          "question_type":  "true_false",
+                          "options":  {
+                                          "correct":  0
+                                      },
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:08:00.631Z"
+                      },
+                      {
+                          "id":  "6684489a-2485-4067-9166-94dfcff3076c",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  18,
+                          "question_text":  "What is a trial balance and what is it used for?",
+                          "question_type":  "text",
+                          "options":  null,
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:08:00.701Z"
+                      },
+                      {
+                          "id":  "07e8a4b8-2dcd-4eca-8758-a9c9c7c5215b",
+                          "exam_id":  "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+                          "order_index":  19,
+                          "question_text":  "Explain the difference between the balance sheet and the income statement.",
+                          "question_type":  "text",
+                          "options":  null,
+                          "metadata":  null,
+                          "created_at":  "2026-01-06T18:08:00.770Z"
+                      }
+                  ]
+}

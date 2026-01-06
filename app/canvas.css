@@ -209,6 +209,8 @@
     flex-direction: column;
     padding-top: 8px;
     flex-shrink: 0;
+    overflow-y: auto;
+    height: 100%;
 }
 
 .question-nav-icons {
