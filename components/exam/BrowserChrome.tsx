@@ -15,10 +15,12 @@ interface BrowserChromeProps {
 
 export default function BrowserChrome({ title, children }: BrowserChromeProps) {
   const [tabs, setTabs] = useState<Tab[]>([
-    { id: 1, title, isMain: true }
+    { id: 1, title: 'Canvas', isMain: true }
   ])
   const [activeTabId, setActiveTabId] = useState(1)
   const [nextId, setNextId] = useState(2)
+  const [searchValue, setSearchValue] = useState('')
+  const [zoomLevel, setZoomLevel] = useState(100)
 
   const addTab = () => {
     const newTab: Tab = {
@@ -49,6 +51,18 @@ export default function BrowserChrome({ title, children }: BrowserChromeProps) {
 
   const activeTab = tabs.find(t => t.id === activeTabId)
   const isBookmarksPage = activeTab && !activeTab.isMain
+
+  const handleZoomIn = () => {
+    setZoomLevel(prev => Math.min(prev + 10, 200))
+  }
+
+  const handleZoomOut = () => {
+    setZoomLevel(prev => Math.max(prev - 10, 50))
+  }
+
+  const handleZoomReset = () => {
+    setZoomLevel(100)
+  }
 
   return (
     <>
@@ -99,13 +113,47 @@ export default function BrowserChrome({ title, children }: BrowserChromeProps) {
           </svg>
         </div>
 
-        <div className="flex-1 flex items-center bg-white border border-gray-300 rounded h-[32px] px-3 shadow-sm">
+        {/* Address bar - 65% width */}
+        <div className="flex items-center bg-white border border-gray-300 rounded h-[32px] px-3 shadow-sm mr-2" style={{width: '65%'}}>
           <svg className="w-[13px] h-[13px] text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
             <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
           </svg>
           <span className="text-[15px] text-gray-600">
             {isBookmarksPage ? 'canvas://bookmarks' : 'https://canvas.kdg.be'}
           </span>
+        </div>
+
+        {/* Zoom controls - 20% width */}
+        <div className="flex items-center gap-1">
+          <button
+            onClick={handleZoomOut}
+            className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-200 rounded transition-colors"
+            title="Уменьшить масштаб"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10H7" />
+            </svg>
+          </button>
+          
+          <button
+            onClick={handleZoomIn}
+            className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-200 rounded transition-colors"
+            title="Увеличить масштаб"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+            </svg>
+          </button>
+
+          <button
+            onClick={handleZoomReset}
+            className="w-8 h-8 flex items-center justify-center text-gray-600 hover:bg-gray-200 rounded transition-colors"
+            title="Сбросить масштаб"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </button>
         </div>
       </div>
 

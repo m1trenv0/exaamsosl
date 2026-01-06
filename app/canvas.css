@@ -209,7 +209,6 @@
     flex-direction: column;
     padding-top: 8px;
     flex-shrink: 0;
-    overflow-y: auto;
     height: 100%;
 }
 
@@ -226,6 +225,12 @@
     color: #9ca3af;
     font-size: 16px;
     cursor: pointer;
+}
+
+.question-nav-scroll {
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
 }
 
 .question-nav-item {
@@ -505,75 +510,6 @@
     clip: rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
-}
-
-/* Old question nav styles - keeping for backwards compatibility */
-.question-nav {
-    width: 65px;
-    background: #fff;
-    border-right: 1px solid #C7CDD1;
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
-}
-
-.question-nav-icons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #e5e7eb;
-    gap: 12px;
-}
-
-.question-nav-icons i {
-    color: #9ca3af;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.question-nav-item {
-    width: 100%;
-    text-align: center;
-    padding: 14px 0;
-    cursor: pointer;
-    position: relative;
-    font-size: 15px;
-    color: #6B7280;
-    font-weight: 400;
-}
-
-.question-nav-item:hover {
-    background-color: #f9fafb;
-}
-
-.question-nav-item.active {
-    font-weight: 600;
-    color: #111827;
-    background-color: #FFFFFF;
-}
-
-.question-nav-item.active::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background-color: #394B58;
-}
-
-.question-nav-bottom {
-    margin-top: auto;
-    padding: 12px 0;
-    border-top: 1px solid #e5e7eb;
-    display: flex;
-    justify-content: center;
-}
-
-.question-nav-bottom i {
-    color: #9ca3af;
-    font-size: 14px;
 }
 
 /* Pin icon */

@@ -56,7 +56,7 @@ export default function Taskbar({ examTitle, onVolumeChange }: Props) {
               {examTitle}
             </span>
             <span className="text-[12.5px] text-gray-300 leading-tight">
-              Chyada Andriei · STUD.183622
+              Shypta Andrei · STUD.182622
             </span>
           </div>
         </div>

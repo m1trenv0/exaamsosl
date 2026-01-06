@@ -27,15 +27,17 @@ export default function QuestionNavigation({
         <i className="far fa-file-alt"></i>
       </div>
 
-      {questions.map((question, index) => (
-        <div
-          key={question.id}
-          onClick={() => onQuestionSelect(index)}
-          className={`question-nav-item ${currentIndex === index ? 'active' : ''}`}
-        >
-          {index + 1}
-        </div>
-      ))}
+      <div className="question-nav-scroll">
+        {questions.map((question, index) => (
+          <div
+            key={question.id}
+            onClick={() => onQuestionSelect(index)}
+            className={`question-nav-item ${currentIndex === index ? 'active' : ''}`}
+          >
+            {index + 1}
+          </div>
+        ))}
+      </div>
 
       <div className="question-nav-bottom">
         <i className="fas fa-bars"></i>
