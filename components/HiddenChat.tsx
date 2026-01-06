@@ -132,8 +132,6 @@ export default function HiddenChat() {
             Send
           </Button>
         </form>
-          </Button>
-        </form>
       </CardContent>
     </Card>
   )
