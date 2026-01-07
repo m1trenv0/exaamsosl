@@ -12,6 +12,7 @@ interface Props {
   onAnswerChange: (answer: string) => void
   onPrevious: () => void
   onNext: () => void
+  onSubmit?: () => void
   hasPrevious: boolean
   hasNext: boolean
   isChatQuestion: boolean
@@ -26,6 +27,7 @@ export default function QuestionCard({
   onAnswerChange,
   onPrevious,
   onNext,
+  onSubmit,
   hasPrevious,
   hasNext,
   isChatQuestion,
@@ -159,13 +161,23 @@ export default function QuestionCard({
         >
           Previous
         </button>
-        <button
-          onClick={onNext}
-          disabled={!hasNext}
-          className="bg-white border border-[#C7CDD1] px-4 py-1.5 rounded text-[13px] text-[#2D3B45] hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
-        >
-          Next
-        </button>
+        
+        {!hasNext && onSubmit ? (
+          <button
+            onClick={onSubmit}
+            className="bg-[#0B874B] text-white px-6 py-1.5 rounded text-[13px] font-medium hover:bg-[#096B3C] transition-colors"
+          >
+            Submit Quiz
+          </button>
+        ) : (
+          <button
+            onClick={onNext}
+            disabled={!hasNext}
+            className="bg-white border border-[#C7CDD1] px-4 py-1.5 rounded text-[13px] text-[#2D3B45] hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+          >
+            Next
+          </button>
+        )}
       </div>
     </div>
   )

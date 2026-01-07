@@ -6,6 +6,7 @@ import CanvasSidebar from './CanvasSidebar'
 import QuestionNavigation from './QuestionNavigation'
 import QuestionCard from './QuestionCard'
 import Taskbar from './Taskbar'
+import SuccessScreen from './SuccessScreen'
 import { Question, Exam } from '@/lib/schemas'
 
 export default function ExamInterface() {
@@ -15,6 +16,7 @@ export default function ExamInterface() {
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [loading, setLoading] = useState(true)
   const [volume, setVolume] = useState(70)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   useEffect(() => {
     loadExam()
@@ -57,6 +59,17 @@ export default function ExamInterface() {
     }
   }
 
+  const handleSubmit = async () => {
+    // Можно добавить дополнительную логику сохранения или валидации
+    setIsSubmitted(true)
+  }
+
+  const handleReturn = () => {
+    // Вернуться к началу или закрыть экзамен
+    setIsSubmitted(false)
+    setCurrentQuestionIndex(0)
+  }
+
   const currentQuestion = questions[currentQuestionIndex]
   const isChatQuestion = exam?.chat_question_index === currentQuestionIndex + 1
 
@@ -90,37 +103,42 @@ export default function ExamInterface() {
           />
           
           <div className="flex-1 overflow-auto bg-white">
-            <div className="p-6">
-              {/* Top Action Bar */}
-              <div className="flex justify-end items-center mb-6">
-                <div className="flex space-x-2">
-                  <button className="bg-white border border-gray-300 px-4 py-1.5 rounded text-[13px] text-gray-600 font-medium hover:bg-gray-50">Return</button>
-                  <button 
-                    onClick={() => setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1))}
-                    disabled={currentQuestionIndex >= questions.length - 1}
-                    className="bg-white border border-gray-300 px-4 py-1.5 rounded text-[13px] text-gray-600 font-medium hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    Next
-                  </button>
+            {isSubmitted ? (
+              <SuccessScreen onReturn={handleReturn} />
+            ) : (
+              <div className="p-6">
+                {/* Top Action Bar */}
+                <div className="flex justify-end items-center mb-6">
+                  <div className="flex space-x-2">
+                    <button className="bg-white border border-gray-300 px-4 py-1.5 rounded text-[13px] text-gray-600 font-medium hover:bg-gray-50">Return</button>
+                    <button 
+                      onClick={() => setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1))}
+                      disabled={currentQuestionIndex >= questions.length - 1}
+                      className="bg-white border border-gray-300 px-4 py-1.5 rounded text-[13px] text-gray-600 font-medium hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed"
+                    >
+                      Next
+                    </button>
+                  </div>
                 </div>
-              </div>
 
-              {currentQuestion && (
-                <QuestionCard
-                  question={currentQuestion}
-                  questionNumber={currentQuestionIndex + 1}
-                  answer={answers[currentQuestion.id!] || ''}
-                  onAnswerChange={(answer) => handleAnswerChange(currentQuestion.id!, answer)}
-                  onPrevious={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
-                  onNext={() => setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1))}
-                  hasPrevious={currentQuestionIndex > 0}
-                  hasNext={currentQuestionIndex < questions.length - 1}
-                  isChatQuestion={isChatQuestion}
-                  chatQuestionText={exam?.chat_question_text}
-                  volume={volume}
-                />
-              )}
-            </div>
+                {currentQuestion && (
+                  <QuestionCard
+                    question={currentQuestion}
+                    questionNumber={currentQuestionIndex + 1}
+                    answer={answers[currentQuestion.id!] || ''}
+                    onAnswerChange={(answer) => handleAnswerChange(currentQuestion.id!, answer)}
+                    onPrevious={() => setCurrentQuestionIndex(prev => Math.max(0, prev - 1))}
+                    onNext={() => setCurrentQuestionIndex(prev => Math.min(questions.length - 1, prev + 1))}
+                    onSubmit={handleSubmit}
+                    hasPrevious={currentQuestionIndex > 0}
+                    hasNext={currentQuestionIndex < questions.length - 1}
+                    isChatQuestion={isChatQuestion}
+                    chatQuestionText={exam?.chat_question_text}
+                    volume={volume}
+                  />
+                )}
+              </div>
+            )}
           </div>
         </div>
       </BrowserChrome>
