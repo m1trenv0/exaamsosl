@@ -153,7 +153,7 @@ export default function CameraCapture({ onCapture, disabled }: CameraCaptureProp
         if (!open) handleClose()
       }} modal={false}>
         <DialogContent 
-          className="max-w-sm fixed top-20 right-6 left-auto translate-x-0 translate-y-0 p-4 bg-white/15 border-white/20"
+          className="max-w-sm fixed bottom-4 left-1/2 -translate-x-1/2 translate-y-0 top-auto right-auto p-4 bg-white/15 border-white/20"
           hideOverlay={true}
         >
           <DialogHeader>
@@ -162,7 +162,7 @@ export default function CameraCapture({ onCapture, disabled }: CameraCaptureProp
             </DialogTitle>
           </DialogHeader>
 
-          <div className="relative bg-black rounded-lg overflow-hidden" style={{ aspectRatio: '4/3', maxHeight: '240px' }}>
+          <div className="relative bg-black/15 rounded-lg overflow-hidden" style={{ aspectRatio: '4/3', maxHeight: '240px' }}>
             {error && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="bg-red-500 text-white px-4 py-2 rounded">
@@ -185,7 +185,7 @@ export default function CameraCapture({ onCapture, disabled }: CameraCaptureProp
                 autoPlay
                 playsInline
                 muted
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover opacity-15"
               />
             )}
 
@@ -194,7 +194,7 @@ export default function CameraCapture({ onCapture, disabled }: CameraCaptureProp
               <img
                 src={capturedImage}
                 alt="Captured"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover opacity-15"
               />
             )}
 
