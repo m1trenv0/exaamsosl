@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
-import { Camera, X, Image as ImageIcon, Timer } from 'lucide-react'
+import { Camera } from 'lucide-react'
 
 interface CameraCaptureProps {
   onCapture: (base64Image: string) => void
@@ -151,15 +151,18 @@ export default function CameraCapture({ onCapture, disabled }: CameraCaptureProp
 
       <Dialog open={isOpen} onOpenChange={(open) => {
         if (!open) handleClose()
-      }}>
-        <DialogContent className="max-w-2xl">
+      }} modal={false}>
+        <DialogContent 
+          className="max-w-sm fixed top-20 right-6 left-auto translate-x-0 translate-y-0 p-4 bg-white/15 border-white/20"
+          hideOverlay={true}
+        >
           <DialogHeader>
-            <DialogTitle>
+            <DialogTitle className="text-base text-gray-800">
               {capturedImage ? 'Preview Photo' : 'Take Photo'}
             </DialogTitle>
           </DialogHeader>
 
-          <div className="relative bg-black rounded-lg overflow-hidden" style={{ aspectRatio: '16/9' }}>
+          <div className="relative bg-black rounded-lg overflow-hidden" style={{ aspectRatio: '4/3', maxHeight: '240px' }}>
             {error && (
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="bg-red-500 text-white px-4 py-2 rounded">
@@ -170,8 +173,8 @@ export default function CameraCapture({ onCapture, disabled }: CameraCaptureProp
 
             {countdown !== null && (
               <div className="absolute inset-0 flex items-center justify-center z-10">
-                <div className="bg-black/50 rounded-full w-32 h-32 flex items-center justify-center">
-                  <span className="text-white text-6xl font-bold">{countdown}</span>
+                <div className="bg-black/50 rounded-full w-20 h-20 flex items-center justify-center">
+                  <span className="text-white text-4xl font-bold">{countdown}</span>
                 </div>
               </div>
             )}
@@ -198,33 +201,33 @@ export default function CameraCapture({ onCapture, disabled }: CameraCaptureProp
             <canvas ref={canvasRef} className="hidden" />
           </div>
 
-          <DialogFooter className="flex gap-2">
+          <DialogFooter className="flex gap-1.5">
             {!capturedImage && !error && (
               <>
                 <Button
                   type="button"
                   variant="outline"
+                  size="sm"
                   onClick={handleClose}
                 >
-                  <X className="h-4 w-4 mr-2" />
                   Cancel
                 </Button>
                 <Button
                   type="button"
                   variant="secondary"
+                  size="sm"
                   onClick={startAutoCapture}
                   disabled={!stream || countdown !== null}
                 >
-                  <Timer className="h-4 w-4 mr-2" />
-                  {countdown !== null ? `${countdown}...` : '3s Timer'}
+                  {countdown !== null ? `${countdown}s` : '3s'}
                 </Button>
                 <Button
                   type="button"
+                  size="sm"
                   onClick={capturePhoto}
                   disabled={!stream || countdown !== null}
                 >
-                  <Camera className="h-4 w-4 mr-2" />
-                  Capture Now
+                  Capture
                 </Button>
               </>
             )}
@@ -234,16 +237,17 @@ export default function CameraCapture({ onCapture, disabled }: CameraCaptureProp
                 <Button
                   type="button"
                   variant="outline"
+                  size="sm"
                   onClick={retakePhoto}
                 >
                   Retake
                 </Button>
                 <Button
                   type="button"
+                  size="sm"
                   onClick={confirmPhoto}
                 >
-                  <ImageIcon className="h-4 w-4 mr-2" />
-                  Send Photo
+                  Send
                 </Button>
               </>
             )}
@@ -252,6 +256,7 @@ export default function CameraCapture({ onCapture, disabled }: CameraCaptureProp
               <Button
                 type="button"
                 variant="outline"
+                size="sm"
                 onClick={handleClose}
               >
                 Close

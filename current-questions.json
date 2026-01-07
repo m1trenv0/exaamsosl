@@ -1,0 +1,397 @@
+[
+  {
+    "id": "bd138f65-9df1-4787-863f-d68b5100771f",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 0,
+    "question_text": "What is the Board of Directors?",
+    "question_type": "multiple_choice",
+    "options": {
+      "correct": 0,
+      "options": [
+        "A group of elected individuals who oversee the management and strategic direction of a company",
+        "A team of employees responsible for daily operations",
+        "External auditors who review financial statements",
+        "Government officials who regulate business activities"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:07:59.460Z"
+  },
+  {
+    "id": "595bb6ab-66e7-4f85-baae-643153d0309e",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 1,
+    "question_text": "Which of the following are examples of internal stakeholders?",
+    "question_type": "multiple_choice",
+    "options": {
+      "correct": 0,
+      "options": [
+        "Employees and managers",
+        "Customers and suppliers",
+        "Government and competitors",
+        "Banks and creditors"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:07:59.529Z"
+  },
+  {
+    "id": "18a6dfac-74e8-47d4-baa6-3445c7fdd4b8",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 2,
+    "question_text": "Which of the following is an example of a financial transaction?",
+    "question_type": "multiple_choice",
+    "options": {
+      "correct": 0,
+      "options": [
+        "Purchasing inventory with cash",
+        "Having a business meeting",
+        "Planning next year's budget",
+        "Discussing market trends"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:07:59.598Z"
+  },
+  {
+    "id": "888593e3-6231-4c2d-b052-a264db0aebde",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 3,
+    "question_text": "What are the two main sides of a balance sheet?",
+    "question_type": "multiple_choice",
+    "options": {
+      "correct": 0,
+      "options": [
+        "Assets and Liabilities + Equity",
+        "Revenue and Expenses",
+        "Debits and Credits",
+        "Income and Cash Flow"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:07:59.667Z"
+  },
+  {
+    "id": "387b798c-764d-45e0-8f24-13d76263a625",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 4,
+    "question_text": "What does CAPEX stand for?",
+    "question_type": "multiple_choice",
+    "options": {
+      "correct": 0,
+      "options": [
+        "Capital Expenditure - long-term investments in assets",
+        "Current Expenses - daily operational costs",
+        "Cash Exchange - money transfers",
+        "Corporate Expansion - business growth"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:07:59.736Z"
+  },
+  {
+    "id": "9da553a5-e789-4ec6-911b-2ad607a30c2c",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 5,
+    "question_text": "Who pays social security contributions in Belgium?",
+    "question_type": "multiple_choice",
+    "options": {
+      "correct": 0,
+      "options": [
+        "Both employer and employee",
+        "Only the employer",
+        "Only the employee",
+        "The government"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:07:59.804Z"
+  },
+  {
+    "id": "0b5b2e39-83b8-40ee-82f2-ce81cf1410d5",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 6,
+    "question_text": "Mike earns €3000 gross per month. With employee social security of 13.07% and withholding tax of 30%, what is approximately his net salary?",
+    "question_type": "multiple_choice",
+    "options": {
+      "correct": 0,
+      "options": [
+        "€1,826",
+        "€2,100",
+        "€2,500",
+        "€2,800"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:07:59.873Z"
+  },
+  {
+    "id": "b570b4d6-dcd4-4222-8c40-3b6a60b09fdc",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 7,
+    "question_text": "If Syrine earns €1700 net with 13.07% social security and 27% tax, what is her approximate gross salary?",
+    "question_type": "multiple_choice",
+    "options": {
+      "correct": 0,
+      "options": [
+        "€2,700",
+        "€2,000",
+        "€2,300",
+        "€3,000"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:07:59.942Z"
+  },
+  {
+    "id": "6631cb71-e1da-4544-961b-a5cf89fc26f1",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 8,
+    "question_text": "What is depreciation?",
+    "question_type": "multiple_choice",
+    "options": {
+      "correct": 0,
+      "options": [
+        "The systematic allocation of the cost of a tangible asset over its useful life",
+        "A cash payment for using equipment",
+        "The increase in value of an asset over time",
+        "A tax payment to the government"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:08:00.011Z"
+  },
+  {
+    "id": "c41bba1f-799a-451b-91fa-74940ec1afb1",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 9,
+    "question_text": "What is the basic accounting equation?",
+    "question_type": "multiple_choice",
+    "options": {
+      "correct": 0,
+      "options": [
+        "Assets = Liabilities + Equity",
+        "Revenue - Expenses = Profit",
+        "Debits = Credits",
+        "Income = Cash Flow"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:08:00.080Z"
+  },
+  {
+    "id": "407c9fa6-47be-4923-b754-28c6ad8911b4",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 10,
+    "question_text": "Which of the following ratios measures liquidity? Select all that apply.",
+    "question_type": "multiple_select",
+    "options": {
+      "correct": [
+        0,
+        2,
+        4
+      ],
+      "options": [
+        "Current Ratio",
+        "Debt Ratio",
+        "Quick Ratio",
+        "ROE (Return on Equity)",
+        "Cash Ratio",
+        "Solvency Degree"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:08:00.149Z"
+  },
+  {
+    "id": "4c6a0c78-307e-4a20-b4c7-a8d25a3151d7",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 11,
+    "question_text": "Which formula correctly calculates the Current Ratio?",
+    "question_type": "multiple_choice",
+    "options": {
+      "correct": 0,
+      "options": [
+        "Current assets / Short-term liabilities",
+        "Equity / Total assets",
+        "Net profit / Equity",
+        "Total debts / Total assets"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:08:00.219Z"
+  },
+  {
+    "id": "75c1879c-9a0e-4998-be36-5f7f72fd3aaa",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 12,
+    "question_text": "Categorize the following items into Balance Sheet or Income Statement:",
+    "question_type": "categorization",
+    "options": {
+      "categories": [
+        {
+          "name": "Balance Sheet",
+          "items": [
+            "Assets",
+            "Liabilities",
+            "Equity",
+            "Cash"
+          ]
+        },
+        {
+          "name": "Income Statement",
+          "items": [
+            "Revenue",
+            "Expenses",
+            "Net Profit"
+          ]
+        }
+      ],
+      "possibleAnswers": [
+        "Assets",
+        "Revenue",
+        "Liabilities",
+        "Expenses",
+        "Equity",
+        "Net Profit",
+        "Cash",
+        "Dividends"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:08:00.287Z"
+  },
+  {
+    "id": "7147161a-db16-4802-aa72-b6acb317c542",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 13,
+    "question_text": "Depreciation is a cash expense.",
+    "question_type": "true_false",
+    "options": {
+      "correct": 1
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:08:00.356Z"
+  },
+  {
+    "id": "cd78cf5c-3806-4fb9-8471-0146c771dae9",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 14,
+    "question_text": "Explain the double-entry bookkeeping system and why it's important for maintaining accurate financial records.",
+    "question_type": "essay_rich",
+    "options": {
+      "wordLimit": {
+        "max": 200,
+        "min": 100
+      }
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:08:00.425Z"
+  },
+  {
+    "id": "c775835a-4513-46a4-b74a-a201c9e18798",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 15,
+    "question_text": "The income statement shows the financial position at a specific moment in time.",
+    "question_type": "true_false",
+    "options": {
+      "correct": 1
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:08:00.494Z"
+  },
+  {
+    "id": "a07b4f1f-fde0-4a76-a41a-f19b862b7611",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 16,
+    "question_text": "Which of the following are types of financial statements? Select all that apply.",
+    "question_type": "multiple_select",
+    "options": {
+      "correct": [
+        0,
+        1,
+        2
+      ],
+      "options": [
+        "Balance Sheet",
+        "Income Statement",
+        "Cash Flow Statement",
+        "Marketing Plan",
+        "Business Model Canvas"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:08:00.562Z"
+  },
+  {
+    "id": "b0194c6d-be88-4d4a-ad0b-2986b15789ae",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 17,
+    "question_text": "Categorize the following as CAPEX or OPEX:",
+    "question_type": "categorization",
+    "options": {
+      "categories": [
+        {
+          "name": "CAPEX",
+          "items": [
+            "Building purchase",
+            "Machinery",
+            "Computer servers"
+          ]
+        },
+        {
+          "name": "OPEX",
+          "items": [
+            "Monthly rent",
+            "Salaries",
+            "Office supplies"
+          ]
+        }
+      ],
+      "possibleAnswers": [
+        "Building purchase",
+        "Monthly rent",
+        "Machinery",
+        "Salaries",
+        "Computer servers",
+        "Office supplies",
+        "Marketing campaign"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:08:00.631Z"
+  },
+  {
+    "id": "6684489a-2485-4067-9166-94dfcff3076c",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 18,
+    "question_text": "What is a trial balance used for?",
+    "question_type": "multiple_choice",
+    "options": {
+      "correct": 0,
+      "options": [
+        "To verify that total debits equal total credits in the accounting system",
+        "To calculate employee salaries",
+        "To determine market share",
+        "To assess customer satisfaction"
+      ]
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:08:00.701Z"
+  },
+  {
+    "id": "07e8a4b8-2dcd-4eca-8758-a9c9c7c5215b",
+    "exam_id": "c691a8f6-746f-4d5c-a6b8-0b64e7a7dd28",
+    "order_index": 19,
+    "question_text": "Compare and contrast the balance sheet and the income statement. Explain what information each provides and why both are essential for understanding a company's financial health.",
+    "question_type": "essay_rich",
+    "options": {
+      "wordLimit": {
+        "max": 250,
+        "min": 150
+      }
+    },
+    "metadata": null,
+    "created_at": "2026-01-06T18:08:00.770Z"
+  }
+]
