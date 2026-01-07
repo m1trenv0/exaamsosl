@@ -202,19 +202,19 @@ export default function Taskbar({ examTitle, onVolumeChange }: Props) {
       {/* Exit Modal */}
       {showExitModal && (
         <div className="fixed inset-0 bg-black/20 flex items-center justify-center z-[100]">
-          <div className="bg-white rounded-[12px] shadow-2xl border border-[#C7CDD1] w-full max-w-[720px] mx-6">
-            <div className="px-10 pt-8 pb-6">
-              <h2 className="text-[28px] leading-[34px] font-semibold text-[#2D3B45] text-center mb-4">
+          <div className="bg-white rounded-[10px] shadow-2xl border border-[#C7CDD1] w-full max-w-[560px] mx-6">
+            <div className="px-8 pt-6 pb-5">
+              <h2 className="text-[24px] leading-[30px] font-semibold text-[#2D3B45] text-center mb-3">
                 Exit application
               </h2>
-              <p className="text-[16px] leading-[24px] text-[#2D3B45] text-left">
+              <p className="text-[14px] leading-[20px] text-[#2D3B45] text-left">
                 Make sure to finalize your session before closing the application.
               </p>
 
-              <div className="mt-8 flex items-center justify-end gap-6">
+              <div className="mt-6 flex items-center justify-end gap-5">
                 <button
                   onClick={() => setShowExitModal(false)}
-                  className="text-[15px] text-gray-500 hover:text-gray-700 font-medium inline-flex items-center gap-2"
+                  className="text-[14px] text-gray-500 hover:text-gray-700 font-medium inline-flex items-center gap-2"
                 >
                   <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5 5L15 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
@@ -225,7 +225,7 @@ export default function Taskbar({ examTitle, onVolumeChange }: Props) {
 
                 <button
                   onClick={handleExit}
-                  className="h-10 px-6 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors font-semibold flex items-center gap-2"
+                  className="h-9 px-5 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors font-semibold flex items-center gap-2 text-[14px]"
                 >
                   <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
