@@ -7,58 +7,65 @@ export default function SuccessScreen({ onReturn }: Props) {
     <div className="p-6">
       {/* Top Action Bar */}
       <div className="flex justify-end items-center mb-6">
-        <button 
+        <button
           onClick={onReturn}
-          className="bg-white border border-gray-300 px-4 py-1.5 rounded text-[13px] text-gray-600 font-medium hover:bg-gray-50"
+          className="bg-white border border-[#C7CDD1] px-4 py-1.5 rounded text-[13px] text-[#2D3B45] hover:bg-gray-50"
         >
           Return
         </button>
       </div>
 
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl font-bold text-gray-900 mb-6">Results</h1>
-        
-        {/* Success Message */}
-        <div className="bg-[#D5F5E8] border border-[#0B874B] rounded-md p-4 mb-6 flex items-start gap-3">
-          <div className="flex-shrink-0 mt-0.5">
-            <svg 
-              className="w-5 h-5 text-[#0B874B]" 
-              fill="currentColor" 
-              viewBox="0 0 20 20"
-            >
-              <path 
-                fillRule="evenodd" 
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" 
-                clipRule="evenodd" 
-              />
-            </svg>
-          </div>
-          <div className="flex-1">
-            <p className="text-[#0B874B] text-[14px] font-medium">
-              Success! Your submission was successful.
-            </p>
-          </div>
-        </div>
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-[32px] leading-[38px] font-semibold text-[#2D3B45] mb-6">Results</h1>
 
-        {/* Info Message */}
-        <div className="bg-gray-50 border border-gray-300 rounded-md p-4 flex items-start gap-3">
-          <div className="flex-shrink-0 mt-0.5">
-            <svg 
-              className="w-5 h-5 text-gray-600" 
-              fill="currentColor" 
-              viewBox="0 0 20 20"
-            >
-              <path 
-                fillRule="evenodd" 
-                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" 
-                clipRule="evenodd" 
-              />
-            </svg>
-          </div>
-          <div className="flex-1">
-            <p className="text-gray-700 text-[14px]">
-              Results are not displayed as per instructor settings.
-            </p>
+        {/* Panel */}
+        <div className="border border-[#C7CDD1] bg-[#F5F5F5]">
+          <div className="p-6">
+            {/* Success plaque */}
+            <div className="border border-[#C7CDD1] bg-white shadow-sm flex items-stretch h-11">
+              <div className="w-11 bg-[#0B874B] flex items-center justify-center">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M16.6663 5L7.49967 14.1667L3.33301 10"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+              <div className="flex-1 flex items-center px-4">
+                <div className="text-[13px] text-[#2D3B45]">
+                  <span className="font-semibold">Success!</span> Your submission was successful.
+                </div>
+              </div>
+            </div>
+
+            {/* Info line */}
+            <div className="mt-5 flex items-start gap-2 text-[13px] text-[#2D3B45]">
+              <div className="mt-[2px] text-gray-500">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.5a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM9 8.5a.75.75 0 000 1.5h.25V14a.75.75 0 00.75.75h.5a.75.75 0 000-1.5H10.75V9.25a.75.75 0 00-.75-.75H9z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+              <div>Results are not displayed as per instructor settings.</div>
+            </div>
           </div>
         </div>
       </div>
