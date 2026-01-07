@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import QuestionsManager from './QuestionsManager'
 import ChatManager from './ChatManager'
 import ExamSettings from './ExamSettings'
+import PasswordApproval from './PasswordApproval'
 
 export default function AdminDashboard() {
   const { data: session } = useSession()
@@ -38,6 +39,15 @@ export default function AdminDashboard() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-8">
+          {/* Password Approval - Top Priority */}
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-2xl">🔐</span>
+              <h2 className="text-xl font-bold text-gray-900">Password Approval</h2>
+            </div>
+            <PasswordApproval />
+          </div>
+
           {/* Chat - Prominent Position */}
             <div className="flex items-center gap-2 mb-4">
               <span className="text-2xl">💬</span>

@@ -1,12 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import BrowserChrome from './BrowserChrome'
 import CanvasSidebar from './CanvasSidebar'
 import QuestionNavigation from './QuestionNavigation'
 import QuestionCard from './QuestionCard'
 import Taskbar from './Taskbar'
 import SuccessScreen from './SuccessScreen'
+import PasswordPrompt from './PasswordPrompt'
 import { Question, Exam } from '@/lib/schemas'
 
 export default function ExamInterface() {
@@ -17,6 +18,10 @@ export default function ExamInterface() {
   const [loading, setLoading] = useState(true)
   const [volume, setVolume] = useState(70)
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [attemptId, setAttemptId] = useState<string | null>(null)
+  const [isAuthLoading, setIsAuthLoading] = useState(false)
+  const [participantName, setParticipantName] = useState('')
 
   useEffect(() => {
     loadExam()
@@ -70,6 +75,60 @@ export default function ExamInterface() {
     setCurrentQuestionIndex(0)
   }
 
+  const handlePasswordSubmit = async (name: string, password: string) => {
+    setIsAuthLoading(true)
+    setParticipantName(name)
+    
+    try {
+      const response = await fetch('/api/exam/password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          password,
+          exam_id: exam?.id,
+        }),
+      })
+
+      const data = await response.json()
+      if (data.attemptId) {
+        setAttemptId(data.attemptId)
+        // Start polling for approval
+      }
+    } catch (error) {
+      console.error('Error submitting password:', error)
+      setIsAuthLoading(false)
+    }
+  }
+
+  const checkPasswordStatus = useCallback(async () => {
+    if (!attemptId) return
+
+    try {
+      const response = await fetch(`/api/exam/password?attemptId=${attemptId}`)
+      const data = await response.json()
+
+      if (data.status === 'approved') {
+        setIsAuthenticated(true)
+        setIsAuthLoading(false)
+      } else if (data.status === 'declined') {
+        setIsAuthLoading(false)
+        setAttemptId(null)
+        alert('Access denied. Please contact your instructor.')
+      }
+    } catch (error) {
+      console.error('Error checking password status:', error)
+    }
+  }, [attemptId])
+
+  // Poll for password approval
+  useEffect(() => {
+    if (!attemptId || isAuthenticated) return
+
+    const interval = setInterval(checkPasswordStatus, 2000)
+    return () => clearInterval(interval)
+  }, [attemptId, isAuthenticated, checkPasswordStatus])
+
   const currentQuestion = questions[currentQuestionIndex]
   const isChatQuestion = exam?.chat_question_index === currentQuestionIndex + 1
 
@@ -85,6 +144,23 @@ export default function ExamInterface() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100">
         <div className="text-lg">No active exam found</div>
+      </div>
+    )
+  }
+
+  // Show password prompt if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <div className="h-screen flex flex-col bg-gray-100">
+        <BrowserChrome title={exam?.title || 'Exam'}>
+          <div className="flex-1 flex items-center justify-center">
+            <PasswordPrompt 
+              onSubmit={handlePasswordSubmit} 
+              isLoading={isAuthLoading}
+            />
+          </div>
+        </BrowserChrome>
+        <Taskbar examTitle={exam?.title || 'Exam'} onVolumeChange={setVolume} />
       </div>
     )
   }
