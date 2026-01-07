@@ -201,28 +201,44 @@ export default function Taskbar({ examTitle, onVolumeChange }: Props) {
 
       {/* Exit Modal */}
       {showExitModal && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-[100]">
-          <div className="bg-white rounded-lg shadow-2xl p-6 max-w-md w-full mx-4">
-            <h2 className="text-xl font-bold text-gray-900 mb-3">Exit application</h2>
-            <p className="text-gray-700 mb-6">
-              Make sure to finalize your session before closing the application.
-            </p>
-            <div className="flex gap-3 justify-end">
-              <button
-                onClick={() => setShowExitModal(false)}
-                className="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors font-semibold text-gray-700"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleExit}
-                className="px-6 py-2 bg-[#e85e13] text-white rounded-md hover:bg-[#d44d08] transition-colors font-semibold flex items-center gap-2"
-              >
-                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                </svg>
-                Exit
-              </button>
+        <div className="fixed inset-0 bg-black/20 flex items-center justify-center z-[100]">
+          <div className="bg-white rounded-[12px] shadow-2xl border border-[#C7CDD1] w-full max-w-[720px] mx-6">
+            <div className="px-10 pt-8 pb-6">
+              <h2 className="text-[28px] leading-[34px] font-semibold text-[#2D3B45] text-center mb-4">
+                Exit application
+              </h2>
+              <p className="text-[16px] leading-[24px] text-[#2D3B45] text-left">
+                Make sure to finalize your session before closing the application.
+              </p>
+
+              <div className="mt-8 flex items-center justify-end gap-6">
+                <button
+                  onClick={() => setShowExitModal(false)}
+                  className="text-[15px] text-gray-500 hover:text-gray-700 font-medium inline-flex items-center gap-2"
+                >
+                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 5L15 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    <path d="M15 5L5 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                  </svg>
+                  Cancel
+                </button>
+
+                <button
+                  onClick={handleExit}
+                  className="h-10 px-6 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors font-semibold flex items-center gap-2"
+                >
+                  <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M16.6663 5L7.49967 14.1667L3.33301 10"
+                      stroke="white"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  Exit
+                </button>
+              </div>
             </div>
           </div>
         </div>
